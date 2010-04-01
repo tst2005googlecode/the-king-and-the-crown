@@ -15,3 +15,17 @@
 --    You should have received a copy of the GNU General Public License
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
+
+-- Menu State
+-- Main menu...
+Unit = {}
+Unit.__index = Unit
+
+function Unit.create()
+    local temp = {}
+    setmetatable(temp, Unit)
+
+    temp.x = 0
+    temp.y = 0
+    return temp
+end
