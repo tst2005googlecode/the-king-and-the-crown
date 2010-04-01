@@ -16,7 +16,7 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
-function love.conf(t)
-    t.title = "The King and the Crown"
-    t.author = "D. Carol <damien.carol@gmail.com>"
+function Castle()
+    castle_obj = {x = 10, y = 20}
+    return castle_obj
 end
