@@ -23,13 +23,23 @@ require("castle.lua")
 systems = {}
 current = 1
 
+--- Call back function of the 'love' engine
+-- Load all sprites
+-- @author Damien Carol <damien.carol@gmail.com>
 function love.load()
+
+    -- load sprites defined in table
+    graphics = {castle = love.graphics.newImage("castle.png"),
+                grass = love.graphics.newImage("grass.tga")}
 
     -- load 'CASTLE' sprite
     castle_sprite = love.graphics.newImage("castle.png");
     
     -- create one castle entity
     castle = Castle()
+    
+    -- load 'GRASS' sprite
+    grass_sprite = love.graphics.newImage("grass.png");
     
     part1 = love.graphics.newImage("part1.png");
     cloud = love.graphics.newImage("cloud.png");
@@ -136,6 +146,12 @@ end
 
 function love.draw()
 
+        for x=0,32 do
+            for y=0,32 do
+                love.graphics.draw(graphics["grass"], x*32, y*32)
+            end
+        end
+
         love.graphics.setColorMode("modulate")
         love.graphics.setBlendMode("additive")
 
@@ -144,7 +160,7 @@ function love.draw()
         love.graphics.print("Click: spawn particles. Mousewheel: change system.", 30, 530);
         love.graphics.print("Press escape to exit.", 30, 550);
 
-        love.graphics.draw(castle_sprite, castle["x"], castle["y"])
+        love.graphics.draw(castle_sprite, castle["x"]*32, castle["y"]*32)
 end
 
 function love.mousepressed(x, y, button)
@@ -161,7 +177,7 @@ end
 
 function love.keypressed(key)
 
-    local delta = 5
+    local delta = 1
     
     if key == "up" then
         castle["y"] = math.max(castle["y"] - delta, 0)
