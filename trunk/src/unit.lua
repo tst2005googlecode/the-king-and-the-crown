@@ -15,8 +15,3 @@
 --    You should have received a copy of the GNU General Public License
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
-
-function love.conf(t)
-    t.title = "The King and the Crown"
-    t.author = "D. Carol <damien.carol@gmail.com>"
-end
