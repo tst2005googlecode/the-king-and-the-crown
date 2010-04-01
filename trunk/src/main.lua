@@ -16,6 +16,10 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
+
+require("unit.lua")
+require("castle.lua")
+
 systems = {}
 current = 1
 
@@ -140,6 +144,7 @@ function love.draw()
         love.graphics.print("Click: spawn particles. Mousewheel: change system.", 30, 530);
         love.graphics.print("Press escape to exit.", 30, 550);
 
+        love.graphics.draw(castle_sprite, castle["x"], castle["y"])
 end
 
 function love.mousepressed(x, y, button)
@@ -155,6 +160,22 @@ function love.mousepressed(x, y, button)
 end
 
 function love.keypressed(key)
+
+    local delta = 5
+    
+    if key == "up" then
+        castle["y"] = math.max(castle["y"] - delta, 0)
+    end
+    if key == "down" then
+        castle["y"] = math.min(castle["y"] + delta, 600)
+    end
+    if key == "left" then
+        castle["x"] = math.max(castle["x"] - delta, 0)
+    end
+    if key == "right" then
+        castle["x"] = math.min(castle["x"] + delta, 600)
+    end
+
     if key == "escape" then
         love.event.push("q")
     end
