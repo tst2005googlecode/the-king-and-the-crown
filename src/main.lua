@@ -66,6 +66,7 @@ function love.load()
                 room182 = love.graphics.newImage("room182.png"),
                 room216 = love.graphics.newImage("room216.png"),
                 room218 = love.graphics.newImage("room218.png"),
+                room219 = love.graphics.newImage("room219.png"),
                 room256 = love.graphics.newImage("room256.png"),
                 room288 = love.graphics.newImage("room002.png"),
                 room432 = love.graphics.newImage("room432.png"),
