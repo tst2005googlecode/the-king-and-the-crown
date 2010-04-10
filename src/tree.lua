@@ -16,32 +16,11 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
--- Menu State
--- Main menu...
-Unit = {}
-Unit.__index = Unit
+-- Respresent catle entity
+Tree = {}
 
-Unit.UNKNOW = 0
-Unit.ARCHER = 1
-Unit.KNIGHT = 2
-
-function Unit.create()
-    local temp = {}
-    setmetatable(temp, Unit)
-
-    temp.x = 0
-    temp.y = 0
-    temp.type = Unit.UNKNOW
-    temp.selected = 0
-    return temp
-end
-
-function Unit:draw()
-    if self.type == Unit.ARCHER then
-        love.graphics.draw(graphics["archer001"], self.x-16, self.y-16)
-    elseif self.type == Unit.KNIGHT then
-        love.graphics.draw(graphics["knight001"], self.x-16, self.y-16)
-    else
-        love.graphics.draw(graphics["unknow001"], self.x-16, self.y-16)
-    end
+--- Default constructor for 'Castle' entities
+function Tree:create()
+    tree_obj = {x = 0, y = 0}
+    return tree_obj
 end

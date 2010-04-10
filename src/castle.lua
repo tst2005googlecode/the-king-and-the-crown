@@ -16,8 +16,11 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
+-- Respresent catle entity
+Castle = {}
+
 --- Default constructor for 'Castle' entities
-function Castle()
+function Castle:create()
     castle_obj = {x = 0, y = 0}
     return castle_obj
 end

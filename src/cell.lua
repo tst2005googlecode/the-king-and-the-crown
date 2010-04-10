@@ -1,6 +1,6 @@
 --
 --    The King And The Crown
---    Copyright (C) 2010  Damien Carol damien.carol@gmail.com
+--    Copyright (C) 2010  Damien Carol <damien.carol@gmail.com>
 --
 --    This program is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
@@ -18,30 +18,17 @@
 
 -- Menu State
 -- Main menu...
-Unit = {}
-Unit.__index = Unit
+Cell = {}
+Cell.__index = Cell
 
-Unit.UNKNOW = 0
-Unit.ARCHER = 1
-Unit.KNIGHT = 2
-
-function Unit.create()
+function Cell.create()
     local temp = {}
-    setmetatable(temp, Unit)
+    setmetatable(temp, Cell)
 
     temp.x = 0
     temp.y = 0
-    temp.type = Unit.UNKNOW
-    temp.selected = 0
+    temp.level = 0
+    
     return temp
 end
 
-function Unit:draw()
-    if self.type == Unit.ARCHER then
-        love.graphics.draw(graphics["archer001"], self.x-16, self.y-16)
-    elseif self.type == Unit.KNIGHT then
-        love.graphics.draw(graphics["knight001"], self.x-16, self.y-16)
-    else
-        love.graphics.draw(graphics["unknow001"], self.x-16, self.y-16)
-    end
-end
