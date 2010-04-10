@@ -1,0 +1,12 @@
+I am releasing pixel art to the public for use in their own games. You are free to use them in whatever way you want (comics, games, icons, etc) as long as you follow these rules:
+
+#1 - Non-Profit - You may not make money off any product you make with this artwork in any way, shape, or form.
+
+#2 - Attribution Required - Any program or website using the Free Pixel Project must include proper credit to each artist listed on the images used. The Free Pixel Project and link (http://www.squidi.net/pixel) as well as the Creative Commons license (linked below) must also be included. For programs, this information must be included somewhere in the program itself and in the accompanying documentation (if any).
+
+#3 - Derivatives Okay - You may build upon the artwork presented by the Free Pixel Project and create your own sprite and tile sheets to give to others, provided that you include proper attribution (as described above) on the modified images. Just follow the example set by the headers already on the free pixel images.
+
+Here is what I just said in license form:
+
+Creative Commons License
+This work is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 Unported License 
