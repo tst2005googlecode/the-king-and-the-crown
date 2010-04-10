@@ -19,9 +19,13 @@
 
 require("unit.lua")
 require("castle.lua")
+require("room.lua")
+require("cell.lua")
 
 systems = {}
 current = 1
+
+units = {}
 
 --- Call back function of the 'love' engine
 -- Load all sprites
@@ -30,13 +34,59 @@ function love.load()
 
     -- load sprites defined in table
     graphics = {castle = love.graphics.newImage("castle.png"),
-                grass = love.graphics.newImage("grass.tga")}
+                grass = love.graphics.newImage("grass.png"),
+                unknow001 = love.graphics.newImage("unknow001.png"),
+                archer001 = love.graphics.newImage("archer001.png"),
+                knight001 = love.graphics.newImage("knight001.png"),
+                
+                
+                roomBLOCK = love.graphics.newImage("block.png"),
+                roomFREE = love.graphics.newImage("free.png"),
+                
+                
+                room000 = love.graphics.newImage("room000.png"),
+                room001 = love.graphics.newImage("room000.png"),
+                room002 = love.graphics.newImage("room002.png"),
+                room004 = love.graphics.newImage("room002.png"),
+                room009 = love.graphics.newImage("room009.png"),
+                room018 = love.graphics.newImage("room018.png"),
+                room019 = love.graphics.newImage("room019.png"),
+                room032 = love.graphics.newImage("room032.png"),
+                room036 = love.graphics.newImage("room000.png"),
+                room038 = love.graphics.newImage("room038.png"),
+                room050 = love.graphics.newImage("room050.png"),
+                room064 = love.graphics.newImage("room000.png"),
+                room072 = love.graphics.newImage("room072.png"),
+                room073 = love.graphics.newImage("room073.png"),
+                room127 = love.graphics.newImage("room127.png"),
+                room128 = love.graphics.newImage("room000.png"),
+                room144 = love.graphics.newImage("room144.png"),
+                room146 = love.graphics.newImage("room146.png"),
+                room146b = love.graphics.newImage("room146b.png"),
+                room182 = love.graphics.newImage("room182.png"),
+                room216 = love.graphics.newImage("room216.png"),
+                room218 = love.graphics.newImage("room218.png"),
+                room256 = love.graphics.newImage("room256.png"),
+                room288 = love.graphics.newImage("room002.png"),
+                room432 = love.graphics.newImage("room432.png"),
+                room434 = love.graphics.newImage("room434.png"),
+                room504 = love.graphics.newImage("room504.png"),
+                room506 = love.graphics.newImage("room506.png"),
+                room511 = love.graphics.newImage("room511.png"),
+                room1752 = love.graphics.newImage("room1752.png"),
+                room3472 = love.graphics.newImage("room3472.png"),
+                room3504 = love.graphics.newImage("room3504.png")
+                }
 
     -- load 'CASTLE' sprite
     castle_sprite = love.graphics.newImage("castle.png");
     
     -- create one castle entity
-    castle = Castle()
+    castle = Castle:create()
+    castle.x = 15
+    castle.y = 16
+    
+    room = Room.create()
     
     -- load 'GRASS' sprite
     grass_sprite = love.graphics.newImage("grass.png");
@@ -128,50 +178,137 @@ function love.load()
 end
 
 direction = 0
+X_ROUND = 0
+Y_ROUND = 0
+LEVEL = 0
 
 function love.update(dt)
 
-    if love.mouse.isDown("l") then
-        systems[current]:setPosition(love.mouse.getX(), love.mouse.getY())
-        systems[current]:start()
-    end
+    -- if love.mouse.isDown("l") then
+        -- systems[current]:setPosition(love.mouse.getX(), love.mouse.getY())
+        -- systems[current]:start()
+    -- end
 
-    if love.keyboard.isDown("d") then
-        systems[current]:setDirection(direction)
-        direction = math.mod(direction + 90 * dt, 360)
-    end
+    -- if love.keyboard.isDown("d") then
+        -- systems[current]:setDirection(direction)
+        -- direction = math.mod(direction + 90 * dt, 360)
+    -- end
 
-    systems[current]:update(dt)
+    --systems[current]:update(dt)
 end
+
+DRAW_BLOCK = 0
 
 function love.draw()
 
-        for x=0,32 do
-            for y=0,32 do
-                love.graphics.draw(graphics["grass"], x*32, y*32)
-            end
+        -- for x=0,32 do
+            -- for y=0,32 do
+                -- love.graphics.draw(graphics["grass"], x*32, y*32)
+            -- end
+        -- end
+        
+        if DRAW_BLOCK == 0 then
+            room:draw()
+        else
+            room:draw_block()
         end
 
-        love.graphics.setColorMode("modulate")
-        love.graphics.setBlendMode("additive")
+        --love.graphics.setColorMode("modulate")
+        --love.graphics.setBlendMode("additive")
 
         love.graphics.draw(systems[current], 0, 0)
         love.graphics.print("System: [" .. current .. "/"..table.getn(systems).."] - " .. systems[current]:count() .. " particles.", 30, 570);
         love.graphics.print("Click: spawn particles. Mousewheel: change system.", 30, 530);
         love.graphics.print("Press escape to exit.", 30, 550);
+love.graphics.print("DEBUG: number of units = " .. #units .. ".", 30, 400);
+love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 450);
 
         love.graphics.draw(castle_sprite, castle["x"]*32, castle["y"]*32)
+        
+        for x=1,#units do
+            local unit = units[x]
+            unit:draw()
+        end
 end
+
+unit_type = Unit.UNKNOW
 
 function love.mousepressed(x, y, button)
     if button == "wu" then
+        unit_type = unit_type + 1
+    
         current = current + 1;
         if current > table.getn(systems) then current = table.getn(systems) end
     end
 
     if button == "wd" then
+        unit_type = unit_type - 1
+        
         current = current - 1;
         if current < 1 then current = 1 end
+    end
+    
+    --[[  if button == "l" then
+        
+        -- test if there are unit in that range
+        local unit_selected = nil
+        local unit = nil
+        for x=1,#units do
+            unit = units[x]
+            io.write(" value = " .. math.abs(unit.x-x) .. ".")
+            --debug.traceback(message = " value = " .. math.abs(unit.x-x) .. ".")
+            if math.abs(unit.x-x) <= 32 and math.abs(unit.y-y) <= 32 then
+                unit_selected = unit
+            end
+        end
+        
+        -- test if no unit was in range
+        -- then create new one at mouse coordinate
+        if unit_selected == nil then
+            local unit = Unit.create()
+            unit.x = love.mouse.getX()
+            unit.y = love.mouse.getY()
+            unit.type = unit_type
+            table.insert(units, unit)
+        else
+            unit_selected.selected = 1
+            -- unselect other units
+            for x=1,#units do
+                local unit = units[x]
+                unit.selected = 0
+            end
+        end
+    end   ]]--
+
+    if button == "l" then
+        X_ROUND = math.floor(x/16)
+        Y_ROUND = math.floor(y/16)
+        
+        local cell = room.cells[X_ROUND+(Y_ROUND*14)]
+        if cell.level == 2 then
+            cell.level = 0
+        else
+            cell.level = 2
+            local cellup = room.cells[X_ROUND+(Y_ROUND*14)+14]
+            if cellup ~= nil then
+                if cellup.level == 2 then
+                    cellup.level = 0
+                else
+                    cellup.level = 2
+                end
+            end
+        end
+        
+        
+    else
+    
+    
+        local X_ROUND_level = math.floor(x/16)
+        local Y_ROUND_level = math.floor(y/16)
+        
+        --local cell = room.cells[X_ROUND+(Y_ROUND*14)]
+        local cell = room.cells[X_ROUND_level+(Y_ROUND_level*14)]
+        LEVEL = room:getNumber(X_ROUND_level, Y_ROUND_level)
     end
 end
 
@@ -190,6 +327,14 @@ function love.keypressed(key)
     end
     if key == "right" then
         castle["x"] = math.min(castle["x"] + delta, 600)
+    end
+    
+    if key == "b" then
+        if DRAW_BLOCK == 0 then
+            DRAW_BLOCK = 1
+        else
+            DRAW_BLOCK = 0
+        end
     end
 
     if key == "escape" then
