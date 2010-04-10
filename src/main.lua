@@ -71,12 +71,18 @@ function love.load()
                 room288 = love.graphics.newImage("room002.png"),
                 room432 = love.graphics.newImage("room432.png"),
                 room434 = love.graphics.newImage("room434.png"),
+                room438 = love.graphics.newImage("room438.png"),
                 room504 = love.graphics.newImage("room504.png"),
                 room506 = love.graphics.newImage("room506.png"),
                 room511 = love.graphics.newImage("room511.png"),
+                room1456 = love.graphics.newImage("room1456.png"),
                 room1752 = love.graphics.newImage("room1752.png"),
+                room1755 = love.graphics.newImage("room1755.png"),
                 room3472 = love.graphics.newImage("room3472.png"),
-                room3504 = love.graphics.newImage("room3504.png")
+                room3504 = love.graphics.newImage("room3504.png"),
+                room3510 = love.graphics.newImage("room3510.png"),
+                room4088 = love.graphics.newImage("room4088.png"),
+                room4095 = love.graphics.newImage("room4095.png")
                 }
 
     -- load 'CASTLE' sprite
