@@ -269,7 +269,7 @@ function Room:draw()
             elseif number == 218 then
                 love.graphics.draw(graphics["room218"], x*16, y*16)
             elseif number == 219 then
-                love.graphics.draw(graphics["room218"], x*16, y*16)
+                love.graphics.draw(graphics["room219"], x*16, y*16)
             elseif number == 222 then
                 love.graphics.draw(graphics["room218"], x*16, y*16)
             elseif number == 246 then
