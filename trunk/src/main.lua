@@ -110,6 +110,7 @@ function love.load()
     graphics.dungeon[438] = love.graphics.newImage("room438.png")
     graphics.dungeon[439] = graphics.dungeon[438]
     graphics.dungeon[504] = love.graphics.newImage("room504.png")
+    graphics.dungeon[505] = graphics.dungeon[504]
     graphics.dungeon[507] = love.graphics.newImage("room507.png")
     graphics.dungeon[508] = graphics.dungeon[504]
     graphics.dungeon[511] = love.graphics.newImage("room511.png")
@@ -136,8 +137,11 @@ function love.load()
     graphics.dungeon[3800] = graphics.dungeon[1752]
     graphics.dungeon[4016] = graphics.dungeon[3504]
     graphics.dungeon[4056] = graphics.dungeon[1752]
+    graphics.dungeon[4059] = graphics.dungeon[1755]
+    graphics.dungeon[4086] = graphics.dungeon[3510]
     graphics.dungeon[4088] = love.graphics.newImage("room4088.png")
     graphics.dungeon[4089] = graphics.dungeon[4088]
+    graphics.dungeon[4091] = love.graphics.newImage("room4091.png")
     graphics.dungeon[4095] = love.graphics.newImage("room4095.png")
     
     -- load 'CASTLE' sprite
