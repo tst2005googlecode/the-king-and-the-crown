@@ -466,6 +466,8 @@ function Room:draw()
                 love.graphics.draw(graphics["room1752"], x*16, y*16)
             elseif number == 1755 then
                 love.graphics.draw(graphics["room1755"], x*16, y*16)
+            elseif number == 1759 then
+                love.graphics.draw(graphics["room1755"], x*16, y*16)
             elseif number == 2048 then
                 love.graphics.draw(graphics["room000"], x*16, y*16)
             elseif number == 2304 then
@@ -484,6 +486,8 @@ function Room:draw()
                 love.graphics.draw(graphics["room072"], x*16, y*16)
             elseif number == 2925 then
                 love.graphics.draw(graphics["room073"], x*16, y*16)
+            elseif number == 3064 then
+                love.graphics.draw(graphics["room504"], x*16, y*16)
             elseif number == 3222 then
                 love.graphics.draw(graphics["room182"], x*16, y*16)
             elseif number == 3254 then
@@ -509,6 +513,8 @@ function Room:draw()
             elseif number == 4079 then
                 love.graphics.draw(graphics["room073"], x*16, y*16)
             elseif number == 4088 then
+                love.graphics.draw(graphics["room4088"], x*16, y*16)
+            elseif number == 4092 then
                 love.graphics.draw(graphics["room4088"], x*16, y*16)
             elseif number == 4095 then
                 love.graphics.draw(graphics["room4095"], x*16, y*16)
