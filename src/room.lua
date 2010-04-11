@@ -221,7 +221,7 @@ function Room:draw()
             elseif number == 79 then
                 love.graphics.draw(graphics["room073"], x*16, y*16)
             elseif number == 91 then
-                love.graphics.draw(graphics["room127"], x*16, y*16)
+                love.graphics.draw(graphics["room091"], x*16, y*16)
             elseif number == 109 then
                 love.graphics.draw(graphics["room073"], x*16, y*16)
             elseif number == 127 then
@@ -442,6 +442,10 @@ function Room:draw()
                 love.graphics.draw(graphics["room000"], x*16, y*16)
             elseif number == 2480 then
                 love.graphics.draw(graphics["room432"], x*16, y*16)
+            elseif number == 2920 then
+                love.graphics.draw(graphics["room072"], x*16, y*16)
+            elseif number == 2925 then
+                love.graphics.draw(graphics["room073"], x*16, y*16)
             elseif number == 3254 then
                 love.graphics.draw(graphics["room182"], x*16, y*16)
             elseif number == 3456 then

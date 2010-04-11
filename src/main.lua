@@ -58,6 +58,7 @@ function love.load()
                 room064 = love.graphics.newImage("room000.png"),
                 room072 = love.graphics.newImage("room072.png"),
                 room073 = love.graphics.newImage("room073.png"),
+                room091 = love.graphics.newImage("room091.png"),
                 room127 = love.graphics.newImage("room127.png"),
                 room128 = love.graphics.newImage("room000.png"),
                 room144 = love.graphics.newImage("room144.png"),
