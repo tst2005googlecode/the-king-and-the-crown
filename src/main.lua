@@ -97,10 +97,13 @@ function love.load()
     graphics.dungeon[54] = graphics.dungeon[38]
     graphics.dungeon[63] = graphics.dungeon[50]
     graphics.dungeon[83] = graphics.dungeon[18]
+    graphics.dungeon[91] = love.graphics.newImage("room091.png")
     graphics.dungeon[144] = love.graphics.newImage("room144.png")
     graphics.dungeon[146] = love.graphics.newImage("room146.png")
+    graphics.dungeon[150] = graphics.dungeon[146]
     graphics.dungeon[191] = graphics.dungeon[146]
     graphics.dungeon[216] = love.graphics.newImage("room216.png")
+    graphics.dungeon[217] = graphics.dungeon[216]
     graphics.dungeon[219] = love.graphics.newImage("room219.png")
     graphics.dungeon[220] = graphics.dungeon[216]
     graphics.dungeon[255] = graphics.dungeon[219]
