@@ -513,7 +513,7 @@ function Room:draw()
             -- elseif number == 4095 then
                 -- love.graphics.draw(graphics["room4095"], x*16, y*16)
             -- else
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
+                love.graphics.draw(graphics["room000"], x*16, y*16)
             -- end
             end
         end
