@@ -179,6 +179,7 @@ function love.load()
     graphics.dungeon[1008] = graphics.dungeon[432]
     graphics.dungeon[1016] = graphics.dungeon[504]
     graphics.dungeon[1017] = graphics.dungeon[504]
+    graphics.dungeon[1018] = graphics.dungeon[506]
     graphics.dungeon[1019] = graphics.dungeon[507]
     graphics.dungeon[1020] = graphics.dungeon[504]
     graphics.dungeon[1021] = graphics.dungeon[504]
@@ -235,6 +236,7 @@ function love.load()
     graphics.dungeon[2040] = love.graphics.newImage("room2040.png")
     graphics.dungeon[2041] = graphics.dungeon[2040]
     graphics.dungeon[2043] = love.graphics.newImage("room2043.png")
+    graphics.dungeon[2044] = love.graphics.newImage("room2044.png")
     graphics.dungeon[2046] = love.graphics.newImage("room2046.png")
     graphics.dungeon[2047] = love.graphics.newImage("room2047.png")
     graphics.dungeon[2448] = graphics.dungeon[144]
@@ -275,7 +277,7 @@ function love.load()
     graphics.dungeon[3528] = graphics.dungeon[72]
     graphics.dungeon[3544] = graphics.dungeon[1240]
     graphics.dungeon[3576] = love.graphics.newImage("room3576.png")
-    graphics.dungeon[3577] = love.graphics.newImage("room3577.png")
+    graphics.dungeon[3577] = graphics.dungeon[2044]
     graphics.dungeon[3580] = graphics.dungeon[3576]
     graphics.dungeon[3582] = love.graphics.newImage("room3582.png")
     graphics.dungeon[3583] = love.graphics.newImage("room3583.png")
@@ -333,12 +335,12 @@ function love.load()
     graphics.dungeon[4085] = graphics.dungeon[3504]
     graphics.dungeon[4086] = graphics.dungeon[3510]
     graphics.dungeon[4087] = graphics.dungeon[3510]
-    graphics.dungeon[4088] = graphics.dungeon[3577]
-    graphics.dungeon[4089] = graphics.dungeon[4088]
+    graphics.dungeon[4088] = graphics.dungeon[2044]
+    graphics.dungeon[4089] = graphics.dungeon[2044]
     graphics.dungeon[4090] = love.graphics.newImage("room4090.png")
     graphics.dungeon[4091] = love.graphics.newImage("room4091.png")
-    graphics.dungeon[4092] = graphics.dungeon[4088]
-    graphics.dungeon[4093] = graphics.dungeon[4088]
+    graphics.dungeon[4092] = graphics.dungeon[2044]
+    graphics.dungeon[4093] = graphics.dungeon[2044]
     graphics.dungeon[4094] = love.graphics.newImage("room4094.png")
     graphics.dungeon[4095] = love.graphics.newImage("room4095.png")
     
