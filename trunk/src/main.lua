@@ -167,6 +167,7 @@ function love.load()
     graphics.dungeon[1008] = graphics.dungeon[432]
     graphics.dungeon[1016] = graphics.dungeon[504]
     graphics.dungeon[1017] = graphics.dungeon[504]
+    graphics.dungeon[1019] = graphics.dungeon[507]
     graphics.dungeon[1023] = graphics.dungeon[511]
     graphics.dungeon[1168] = love.graphics.newImage("room1168.png")
     graphics.dungeon[1170] = love.graphics.newImage("room1170.png")
@@ -191,7 +192,6 @@ function love.load()
     graphics.dungeon[1528] = love.graphics.newImage("room1528.png")
     graphics.dungeon[1530] = love.graphics.newImage("room1530.png")
     graphics.dungeon[1533] = graphics.dungeon[1528]
-    graphics.dungeon[1534] = graphics.dungeon[1528]
     graphics.dungeon[1535] = love.graphics.newImage("room1535.png")
     graphics.dungeon[1680] = graphics.dungeon[1168]
     graphics.dungeon[1682] = graphics.dungeon[1170]
@@ -232,11 +232,13 @@ function love.load()
     graphics.dungeon[2556] = graphics.dungeon[504]
     graphics.dungeon[2559] = graphics.dungeon[511]
     graphics.dungeon[3064] = graphics.dungeon[504]
+    graphics.dungeon[3068] = graphics.dungeon[504]
     graphics.dungeon[3069] = graphics.dungeon[504]
     graphics.dungeon[3071] = graphics.dungeon[511]
     graphics.dungeon[3216] = graphics.dungeon[1168]
     graphics.dungeon[3218] = graphics.dungeon[1170]
     graphics.dungeon[3222] = graphics.dungeon[1170]
+    graphics.dungeon[3223] = graphics.dungeon[1170]
     graphics.dungeon[3472] = graphics.dungeon[1168]
     graphics.dungeon[3474] = graphics.dungeon[1170]
     graphics.dungeon[3504] = love.graphics.newImage("room3504.png")
@@ -251,6 +253,7 @@ function love.load()
     graphics.dungeon[3582] = love.graphics.newImage("room3582.png")
     graphics.dungeon[3583] = love.graphics.newImage("room3583.png")
     graphics.dungeon[3730] = graphics.dungeon[1170]
+    graphics.dungeon[3735] = graphics.dungeon[1170]
     graphics.dungeon[3734] = graphics.dungeon[1170]
     graphics.dungeon[3766] = graphics.dungeon[1170]
     graphics.dungeon[3775] = graphics.dungeon[1170]
