@@ -110,6 +110,7 @@ function love.load()
     graphics.dungeon[91] = love.graphics.newImage("room091.png")
     graphics.dungeon[109] = graphics.dungeon[73]
     graphics.dungeon[127] = love.graphics.newImage("room127.png")
+    graphics.dungeon[126] = graphics.dungeon[127] -- hack for corner join
     graphics.dungeon[144] = love.graphics.newImage("room144.png")
     graphics.dungeon[146] = love.graphics.newImage("room146.png")
     graphics.dungeon[147] = graphics.dungeon[146]
@@ -122,6 +123,7 @@ function love.load()
     graphics.dungeon[218] = love.graphics.newImage("room218.png")
     graphics.dungeon[219] = love.graphics.newImage("room219.png")
     graphics.dungeon[220] = graphics.dungeon[216]
+    graphics.dungeon[223] = graphics.dungeon[219]
     graphics.dungeon[252] = graphics.dungeon[216]
     graphics.dungeon[254] = graphics.dungeon[218]
     graphics.dungeon[255] = graphics.dungeon[219]
@@ -129,6 +131,7 @@ function love.load()
     graphics.dungeon[310] = graphics.dungeon[54]
     graphics.dungeon[315] = graphics.dungeon[27]
     graphics.dungeon[319] = graphics.dungeon[50]
+    graphics.dungeon[328] = graphics.dungeon[72]
     graphics.dungeon[329] = graphics.dungeon[73]
     graphics.dungeon[360] = graphics.dungeon[72]
     graphics.dungeon[361] = graphics.dungeon[73]
@@ -154,6 +157,7 @@ function love.load()
     graphics.dungeon[659] = graphics.dungeon[146]
     graphics.dungeon[728] = graphics.dungeon[216]
     graphics.dungeon[729] = graphics.dungeon[216]
+    graphics.dungeon[730] = graphics.dungeon[218]
     graphics.dungeon[731] = graphics.dungeon[219]
     graphics.dungeon[1008] = graphics.dungeon[432]
     graphics.dungeon[1023] = graphics.dungeon[511]
@@ -164,31 +168,42 @@ function love.load()
     graphics.dungeon[1179] = graphics.dungeon[1170]
     graphics.dungeon[1206] = graphics.dungeon[1170]
     graphics.dungeon[1240] = love.graphics.newImage("room1240.png")
+    graphics.dungeon[1241] = graphics.dungeon[1240]
     graphics.dungeon[1243] = love.graphics.newImage("room1243.png")
     graphics.dungeon[1456] = love.graphics.newImage("room1456.png")
+    graphics.dungeon[1460] = graphics.dungeon[434]
     graphics.dungeon[1462] = love.graphics.newImage("room1462.png")
+    graphics.dungeon[1533] = love.graphics.newImage("room1533.png")
+    graphics.dungeon[1534] = graphics.dungeon[1533]
     graphics.dungeon[1535] = love.graphics.newImage("room1535.png")
     graphics.dungeon[1680] = graphics.dungeon[1168]
     graphics.dungeon[1682] = graphics.dungeon[1170]
     graphics.dungeon[1683] = graphics.dungeon[1170]
     graphics.dungeon[1689] = graphics.dungeon[1168]
+    graphics.dungeon[1691] = graphics.dungeon[1170]
     graphics.dungeon[1736] = graphics.dungeon[72]
     graphics.dungeon[1737] = graphics.dungeon[73]
     graphics.dungeon[1744] = graphics.dungeon[1168]
     graphics.dungeon[1746] = graphics.dungeon[1170]
+    graphics.dungeon[1747] = graphics.dungeon[1170]
     graphics.dungeon[1752] = love.graphics.newImage("room1752.png")
+    graphics.dungeon[1753] = graphics.dungeon[1752]
     graphics.dungeon[1754] = love.graphics.newImage("room1754.png")
     graphics.dungeon[1755] = love.graphics.newImage("room1755.png")
+    graphics.dungeon[1791] = graphics.dungeon[1755]
     graphics.dungeon[2032] = graphics.dungeon[1456]
     graphics.dungeon[2040] = love.graphics.newImage("room2040.png")
+    graphics.dungeon[2448] = graphics.dungeon[144]
     graphics.dungeon[2480] = graphics.dungeon[432]
-    graphics.dungeon[2482] = graphics.dungeon[432]
+    graphics.dungeon[2482] = graphics.dungeon[434]
     graphics.dungeon[2484] = graphics.dungeon[216]
     graphics.dungeon[2486] = love.graphics.newImage("room438.png")
+    graphics.dungeon[2487] = graphics.dungeon[2486]
     graphics.dungeon[2520] = graphics.dungeon[216]
     graphics.dungeon[2552] = graphics.dungeon[504]
     graphics.dungeon[2559] = graphics.dungeon[511]
     graphics.dungeon[3064] = graphics.dungeon[504]
+    graphics.dungeon[3071] = graphics.dungeon[511]
     graphics.dungeon[3216] = graphics.dungeon[1168]
     graphics.dungeon[3218] = graphics.dungeon[1170]
     graphics.dungeon[3222] = graphics.dungeon[1170]
@@ -196,19 +211,26 @@ function love.load()
     graphics.dungeon[3474] = graphics.dungeon[1170]
     graphics.dungeon[3504] = love.graphics.newImage("room3504.png")
     graphics.dungeon[3510] = love.graphics.newImage("room3510.png")
+    graphics.dungeon[3511] = graphics.dungeon[3510]
     graphics.dungeon[3519] = graphics.dungeon[3510]
+    graphics.dungeon[3528] = graphics.dungeon[72]
     graphics.dungeon[3544] = graphics.dungeon[1240]
     graphics.dungeon[3576] = love.graphics.newImage("room3576.png")
     graphics.dungeon[3800] = graphics.dungeon[1752]
+    graphics.dungeon[3807] = graphics.dungeon[1755]
     graphics.dungeon[4016] = graphics.dungeon[3504]
     graphics.dungeon[4056] = graphics.dungeon[1752]
     graphics.dungeon[4059] = graphics.dungeon[1755]
+    graphics.dungeon[4072] = graphics.dungeon[72]
+    graphics.dungeon[4073] = graphics.dungeon[73]
     graphics.dungeon[4077] = graphics.dungeon[73]
     graphics.dungeon[4080] = graphics.dungeon[3504]
     graphics.dungeon[4086] = graphics.dungeon[3510]
     graphics.dungeon[4088] = love.graphics.newImage("room4088.png")
     graphics.dungeon[4089] = graphics.dungeon[4088]
     graphics.dungeon[4091] = love.graphics.newImage("room4091.png")
+    graphics.dungeon[4092] = graphics.dungeon[4088]
+    graphics.dungeon[4094] = love.graphics.newImage("room4094.png")
     graphics.dungeon[4095] = love.graphics.newImage("room4095.png")
     
     -- load 'CASTLE' sprite
@@ -417,7 +439,7 @@ function love.mousepressed(x, y, button)
         X_ROUND = math.floor(x/16)
         Y_ROUND = math.floor(y/16)
         
-        local cell = room.cells[X_ROUND+(Y_ROUND*14)]
+        local cell = room.cells[X_ROUND][Y_ROUND]
         if cell.level == 2 then
             cell.level = 0
         else
@@ -440,7 +462,7 @@ function love.mousepressed(x, y, button)
         local Y_ROUND_level = math.floor(y/16)
         
         --local cell = room.cells[X_ROUND+(Y_ROUND*14)]
-        local cell = room.cells[X_ROUND_level+(Y_ROUND_level*14)]
+        local cell = room.cells[X_ROUND_level][Y_ROUND_level]
         LEVEL = room:getNumber(X_ROUND_level, Y_ROUND_level)
     end
 end

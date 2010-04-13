@@ -35,12 +35,13 @@ function Room.create()
     temp.cells = {}
     
     for x=1,20 do
+    temp.cells[x] = {}
         for y=1,14 do
             local cell = Cell.create()
             cell.x = x
             cell.y = y
-            cell.level = 0
-            temp.cells[x+(y*14)] = cell
+            cell.level = 2
+            temp.cells[x][y] = cell
         end
     end
     
@@ -49,21 +50,21 @@ end
 
 function Room:getNumber(x, y)
 
-    local cell0 = self.cells[x-1+((y-1)*14)]
-    local cell1 = self.cells[x+((y-1)*14)]
-    local cell2 = self.cells[x+1+((y-1)*14)]
+    local cell0 = self.cells[x-1][y-1]
+    local cell1 = self.cells[x][y-1]
+    local cell2 = self.cells[x+1][y-1]
     
-    local cell3 = self.cells[x-1+(y*14)]
-    local cell4 = self.cells[x+(y*14)]
-    local cell5 = self.cells[x+1+(y*14)]
+    local cell3 = self.cells[x-1][y]
+    local cell4 = self.cells[x][y]
+    local cell5 = self.cells[x+1][y]
     
-    local cell6 = self.cells[x-1+((y+1)*14)]
-    local cell7 = self.cells[x+((y+1)*14)]
-    local cell8 = self.cells[x+1+((y+1)*14)]
+    local cell6 = self.cells[x-1][y+1]
+    local cell7 = self.cells[x][y+1]
+    local cell8 = self.cells[x+1][y+1]
     
-    local cell9 = self.cells[x-1+((y+2)*14)]
-    local cell10 = self.cells[x+((y+2)*14)]
-    local cell11 = self.cells[x+1+((y+2)*14)]
+    local cell9 = self.cells[x-1][y+2]
+    local cell10 = self.cells[x][y+2]
+    local cell11 = self.cells[x+1][y+2]
     
     local number = 0
     
@@ -148,8 +149,8 @@ function Room:getNumber(x, y)
 
 function Room:draw()
 
-    for x=1,20 do
-        for y=1,14 do
+    for x=2,18 do
+        for y=2,13 do
             local number = 0
             
             number = self:getNumber(x, y)
@@ -159,362 +160,7 @@ function Room:draw()
             if image ~= nil then
                 love.graphics.draw(graphics.dungeon[number], x*16, y*16)
             else
-            --test magic number and check what to draw
-            -- if number == 0 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 1 then
-                -- love.graphics.draw(graphics["room001"], x*16, y*16)
-            -- elseif number == 2 then
-                -- love.graphics.draw(graphics["room002"], x*16, y*16)
-            -- elseif number == 4 then
-                -- love.graphics.draw(graphics["room004"], x*16, y*16)
-            -- elseif number == 9 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 11 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 18 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 19 then
-                -- love.graphics.draw(graphics["room018"], x*16, y*16)
-            -- elseif number == 23 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 32 then
-                -- love.graphics.draw(graphics["room032"], x*16, y*16)
-            -- elseif number == 36 then
-                -- love.graphics.draw(graphics["room036"], x*16, y*16)
-            -- elseif number == 45 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 50 then
-                -- love.graphics.draw(graphics["room050"], x*16, y*16)
-            -- elseif number == 54 then
-                -- love.graphics.draw(graphics["room038"], x*16, y*16)
-            -- elseif number == 63 then
-                -- love.graphics.draw(graphics["room050"], x*16, y*16)
-            -- elseif number == 64 then
-                -- love.graphics.draw(graphics["room064"], x*16, y*16)
-            -- elseif number == 65 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 67 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 71 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 72 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 73 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 75 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 77 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 79 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 91 then
-                -- love.graphics.draw(graphics["room091"], x*16, y*16)
-            -- elseif number == 109 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 127 then
-                -- love.graphics.draw(graphics["room127"], x*16, y*16)
-            -- elseif number == 128 then
-                -- love.graphics.draw(graphics["room128"], x*16, y*16)
-            -- elseif number == 130 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 131 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 134 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 144 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 146 then
-                -- love.graphics.draw(graphics["room146"], x*16, y*16)
-            -- elseif number == 147 then
-                -- love.graphics.draw(graphics["room146"], x*16, y*16)
-            -- elseif number == 150 then
-                -- love.graphics.draw(graphics["room146"], x*16, y*16)
-            -- elseif number == 155 then
-                -- love.graphics.draw(graphics["room146"], x*16, y*16)
-            -- elseif number == 182 then
-                -- love.graphics.draw(graphics["room146"], x*16, y*16)
-            -- elseif number == 191 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 210 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 211 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 216 then
-                -- love.graphics.draw(graphics["room216"], x*16, y*16)
-            -- elseif number == 217 then
-                -- love.graphics.draw(graphics["room216"], x*16, y*16)
-            -- elseif number == 218 then
-                -- love.graphics.draw(graphics["room218"], x*16, y*16)
-            -- elseif number == 219 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 222 then
-                -- love.graphics.draw(graphics["room218"], x*16, y*16)
-            -- elseif number == 246 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 255 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 256 then
-                -- love.graphics.draw(graphics["room256"], x*16, y*16)
-            -- elseif number == 260 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 263 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 288 then
-                -- love.graphics.draw(graphics["room288"], x*16, y*16)
-            -- elseif number == 292 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 294 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 295 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 297 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 301 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 310 then
-                -- love.graphics.draw(graphics["room038"], x*16, y*16)
-            -- elseif number == 319 then
-                -- love.graphics.draw(graphics["room050"], x*16, y*16)
-            -- elseif number == 320 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 327 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 329 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 333 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 335 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 357 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 359 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 360 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 361 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 364 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 365 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 367 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 383 then
-                -- love.graphics.draw(graphics["room127"], x*16, y*16)
-            -- elseif number == 384 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 390 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 391 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 402 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 406 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 411 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 423 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 432 then
-                -- love.graphics.draw(graphics["room432"], x*16, y*16)
-            -- elseif number == 434 then
-                -- love.graphics.draw(graphics["room434"], x*16, y*16)
-            -- elseif number == 435 then
-                -- love.graphics.draw(graphics["room434"], x*16, y*16)
-            -- elseif number == 436 then
-                -- love.graphics.draw(graphics["room432"], x*16, y*16)
-            -- elseif number == 448 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 449 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 450 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 451 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 452 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 453 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 454 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 455 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 456 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 457 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 464 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 471 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 461 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 463 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 484 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 485 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 487 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 493 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 495 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 504 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 505 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 506 then
-                -- love.graphics.draw(graphics["room506"], x*16, y*16)
-            -- elseif number == 507 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 508 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 509 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 511 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 512 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 521 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 523 then
-                -- love.graphics.draw(graphics["room009"], x*16, y*16)
-            -- elseif number == 576 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 584 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 585 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 603 then
-                -- love.graphics.draw(graphics["room091"], x*16, y*16)
-            -- elseif number == 728 then
-                -- love.graphics.draw(graphics["room216"], x*16, y*16)
-            -- elseif number == 731 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1016 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 1023 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1043 then
-                -- love.graphics.draw(graphics["room018"], x*16, y*16)
-            -- elseif number == 1046 then
-                -- love.graphics.draw(graphics["room018"], x*16, y*16)
-            -- elseif number == 1170 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1171 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1174 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1179 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1206 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1240 then
-                -- love.graphics.draw(graphics["room1240"], x*16, y*16)
-            -- elseif number == 1243 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1456 then
-                -- love.graphics.draw(graphics["room1456"], x*16, y*16)
-            -- elseif number == 1462 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1535 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1611 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 1682 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1683 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1691 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1718 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1728 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 1736 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 1737 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 1744 then
-                -- love.graphics.draw(graphics["room3472"], x*16, y*16)
-            -- elseif number == 1746 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1747 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1750 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 1752 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1754 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 1755 then
-                -- love.graphics.draw(graphics["room1755"], x*16, y*16)
-            -- elseif number == 1759 then
-                -- love.graphics.draw(graphics["room1755"], x*16, y*16)
-            -- elseif number == 2048 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 2304 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 2336 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 2340 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 2358 then
-                -- love.graphics.draw(graphics["room038"], x*16, y*16)
-            -- elseif number == 2480 then
-                -- love.graphics.draw(graphics["room432"], x*16, y*16)
-            -- elseif number == 2486 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 2552 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 2559 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 2920 then
-                -- love.graphics.draw(graphics["room072"], x*16, y*16)
-            -- elseif number == 2925 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 3064 then
-                -- love.graphics.draw(graphics["room504"], x*16, y*16)
-            -- elseif number == 3222 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 3254 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 3456 then
-                -- love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- elseif number == 3474 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 3504 then
-                -- love.graphics.draw(graphics["room3504"], x*16, y*16)
-            -- elseif number == 3510 then
-                -- love.graphics.draw(graphics["room3510"], x*16, y*16)
-            -- elseif number == 3472 then
-                -- love.graphics.draw(graphics["room3472"], x*16, y*16)
-            -- elseif number == 3478 then
-                -- love.graphics.draw(graphics["room182"], x*16, y*16)
-            -- elseif number == 3663 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 4041 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 4047 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 4079 then
-                -- love.graphics.draw(graphics["room073"], x*16, y*16)
-            -- elseif number == 4056 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 4088 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 4089 then
-                -- love.graphics.draw(graphics.dungeon[number], x*16, y*16)
-            -- elseif number == 4092 then
-                -- love.graphics.draw(graphics["room4088"], x*16, y*16)
-            -- elseif number == 4095 then
-                -- love.graphics.draw(graphics["room4095"], x*16, y*16)
-            -- else
                 love.graphics.draw(graphics["room000"], x*16, y*16)
-            -- end
             end
         end
     end
@@ -524,7 +170,7 @@ function Room:draw_block()
 
     for x=1,20 do
         for y=1,14 do
-            local cell = self.cells[x+(y*14)]
+            local cell = self.cells[x][y]
             
             
             -- test magic number and check what to draw
