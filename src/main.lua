@@ -222,6 +222,7 @@ function love.load()
     graphics.dungeon[2040] = love.graphics.newImage("room2040.png")
     graphics.dungeon[2041] = graphics.dungeon[2040]
     graphics.dungeon[2043] = love.graphics.newImage("room2043.png")
+    graphics.dungeon[2046] = love.graphics.newImage("room2046.png")
     graphics.dungeon[2047] = love.graphics.newImage("room2047.png")
     graphics.dungeon[2448] = graphics.dungeon[144]
     graphics.dungeon[2480] = graphics.dungeon[432]
