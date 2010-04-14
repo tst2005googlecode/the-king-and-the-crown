@@ -40,7 +40,7 @@ function Room.create()
             local cell = Cell.create()
             cell.x = x
             cell.y = y
-            cell.level = 2
+            cell.level = 0
             temp.cells[x][y] = cell
         end
     end
@@ -160,7 +160,7 @@ function Room:draw()
             if image ~= nil then
                 love.graphics.draw(graphics.dungeon[number], x*16, y*16)
             else
-                love.graphics.draw(graphics["room000"], x*16, y*16)
+                love.graphics.draw(graphics.dungeon[0], x*16, y*16)
             end
         end
     end
