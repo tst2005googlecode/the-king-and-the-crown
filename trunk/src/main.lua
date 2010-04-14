@@ -99,6 +99,7 @@ function love.load()
     graphics.dungeon[254] = graphics.dungeon[218]
     graphics.dungeon[255] = graphics.dungeon[219]
     graphics.dungeon[265] = graphics.dungeon[9]
+    graphics.dungeon[274] = graphics.dungeon[18]
     graphics.dungeon[297] = graphics.dungeon[9]
     graphics.dungeon[301] = graphics.dungeon[9]
     graphics.dungeon[303] = graphics.dungeon[9]
@@ -148,6 +149,7 @@ function love.load()
     graphics.dungeon[767] = graphics.dungeon[219]
     graphics.dungeon[1008] = graphics.dungeon[432]
     graphics.dungeon[1014] = graphics.dungeon[438]
+    graphics.dungeon[1015] = graphics.dungeon[438]
     graphics.dungeon[1016] = graphics.dungeon[504]
     graphics.dungeon[1017] = graphics.dungeon[504]
     graphics.dungeon[1018] = graphics.dungeon[506]
@@ -207,6 +209,8 @@ function love.load()
     graphics.dungeon[1758] = graphics.dungeon[1754]
     graphics.dungeon[1759] = graphics.dungeon[1755]
     graphics.dungeon[1782] = graphics.dungeon[1170]
+    graphics.dungeon[1788] = graphics.dungeon[1752]
+    graphics.dungeon[1790] = graphics.dungeon[1754]
     graphics.dungeon[1791] = graphics.dungeon[1755]
     graphics.dungeon[1968] = graphics.dungeon[1456]
     graphics.dungeon[1970] = graphics.dungeon[1458]
@@ -220,6 +224,7 @@ function love.load()
     graphics.dungeon[2044] = love.graphics.newImage("room2044.png")
     graphics.dungeon[2046] = love.graphics.newImage("room2046.png")
     graphics.dungeon[2047] = love.graphics.newImage("room2047.png")
+    graphics.dungeon[2192] = graphics.dungeon[144]
     graphics.dungeon[2448] = graphics.dungeon[144]
     graphics.dungeon[2450] = graphics.dungeon[146]
     graphics.dungeon[2480] = graphics.dungeon[432]
@@ -229,6 +234,7 @@ function love.load()
     graphics.dungeon[2487] = graphics.dungeon[2486]
     graphics.dungeon[2495] = graphics.dungeon[447]
     graphics.dungeon[2520] = graphics.dungeon[216]
+    graphics.dungeon[2523] = graphics.dungeon[223]
     graphics.dungeon[2552] = graphics.dungeon[504]
     graphics.dungeon[2556] = graphics.dungeon[504]
     graphics.dungeon[2557] = graphics.dungeon[504]
@@ -297,6 +303,7 @@ function love.load()
     graphics.dungeon[4020] = graphics.dungeon[3504]
     graphics.dungeon[4022] = graphics.dungeon[3510]
     graphics.dungeon[4023] = graphics.dungeon[3510]
+    graphics.dungeon[4025] = graphics.dungeon[3504]
     graphics.dungeon[4031] = graphics.dungeon[3510]
     graphics.dungeon[4040] = graphics.dungeon[72]
     graphics.dungeon[4041] = graphics.dungeon[73]
