@@ -183,8 +183,10 @@ function love.load()
     graphics.dungeon[1467] = graphics.dungeon[1458]
     graphics.dungeon[1471] = graphics.dungeon[1462]
     graphics.dungeon[1528] = love.graphics.newImage("room1528.png")
+    graphics.dungeon[1529] = graphics.dungeon[1528]
     graphics.dungeon[1530] = love.graphics.newImage("room1530.png")
     graphics.dungeon[1531] = love.graphics.newImage("room1531.png")
+    graphics.dungeon[1532] = graphics.dungeon[1528]
     graphics.dungeon[1533] = graphics.dungeon[1528]
     graphics.dungeon[1534] = love.graphics.newImage("room1534.png")
     graphics.dungeon[1535] = love.graphics.newImage("room1535.png")
@@ -238,6 +240,7 @@ function love.load()
     graphics.dungeon[2520] = graphics.dungeon[216]
     graphics.dungeon[2523] = graphics.dungeon[223]
     graphics.dungeon[2552] = graphics.dungeon[504]
+    graphics.dungeon[2554] = graphics.dungeon[506]
     graphics.dungeon[2556] = graphics.dungeon[504]
     graphics.dungeon[2557] = graphics.dungeon[504]
     graphics.dungeon[2558] = graphics.dungeon[510]
