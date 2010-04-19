@@ -40,7 +40,7 @@ function Room.create()
             local cell = Cell.create()
             cell.x = x
             cell.y = y
-            cell.level = 0
+            cell.wall = true
             temp.cells[x][y] = cell
         end
     end
@@ -48,7 +48,9 @@ function Room.create()
     return temp
 end
 
-function Room:getNumber(x, y)
+-- x coordinate of the cell
+--
+function Room:getWallNumber(x, y)
 
     local cell0 = self.cells[x-1][y-1]
     local cell1 = self.cells[x][y-1]
@@ -69,77 +71,73 @@ function Room:getNumber(x, y)
     local number = 0
     
     if cell0 ~= nil then
-        if cell0.level > 0 then
+        if cell0.wall == true then
             number = number + 1
         end
     end
     
     if cell1 ~= nil then
-        if cell1.level > 0 then
+        if cell1.wall == true then
             number = number + 2
         end
     end
     
     if cell2 ~= nil then
-        if cell2.level > 0 then
+        if cell2.wall == true then
             number = number + 4
         end
     end
     
     if cell3 ~= nil then
-        if cell3.level > 0 then
+        if cell3.wall == true then
             number = number + 8
         end
     end
 
     if cell4 ~= nil then
-        if cell4.level > 0 then
+        if cell4.wall == true then
             number = number + 16
         end
     end
     
     if cell5 ~= nil then
-        if cell5.level > 0 then
+        if cell5.wall == true then
             number = number + 32
         end
     end
     
     if cell6 ~= nil then
-        if cell6.level > 0 then
+        if cell6.wall == true then
             number = number + 64
         end
     end
     
     if cell7 ~= nil then
-        if cell7.level > 0 then
+        if cell7.wall == true then
             number = number + 128
-        else
-            cell9 = nil
-            cell10 = nil
-            cell11 = nil
         end
     end
     
     if cell8 ~= nil then
-        if cell8.level > 0 then
+        if cell8.wall == true then
             number = number + 256
         end
     end
     
     if cell9 ~= nil then
-        if cell9.level > 0 then
+        if cell9.wall == true then
             number = number + 512
         end
     end
     
     if cell10 ~= nil then
-        if cell10.level > 0 then
+        if cell10.wall == true then
             number = number + 1024
         end        
     end
     
     if cell11 ~= nil then
-        if cell11.level > 0 then
+        if cell11.wall == true then
             number = number + 2048
         end
     end
@@ -149,11 +147,11 @@ function Room:getNumber(x, y)
 
 function Room:draw()
 
-    for x=2,18 do
-        for y=2,13 do
+    for x=2,4 do
+        for y=2,5 do
             local number = 0
             
-            number = self:getNumber(x, y)
+            number = self:getWallNumber(x, y)
             
             local image = graphics.dungeon[number]
             
@@ -168,13 +166,13 @@ end
 
 function Room:draw_block()
 
-    for x=1,20 do
-        for y=1,14 do
+    for x=2,4 do
+        for y=2,5 do
             local cell = self.cells[x][y]
             
             
             -- test magic number and check what to draw
-            if cell.level ~= 0 then
+            if cell.wall == true then
                 love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
             else
                 love.graphics.draw(graphics["roomFREE"], x*16, y*16)

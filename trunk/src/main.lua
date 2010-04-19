@@ -47,6 +47,13 @@ function love.load()
                 
                 }
     
+    graphics.tile = {}
+    
+    for y=0,15 do
+        for x=0,15 do
+            graphics.tile[x+(y*16)] = love.graphics.newQuad(x*16, y*16, 16, 16, 256, 256)
+        end
+    end
     
     graphics.dungeon[0] = love.graphics.newImage("room000.png")
     graphics.dungeon[9] = love.graphics.newImage("room009.png")
@@ -562,21 +569,22 @@ function love.mousepressed(x, y, button)
         Y_ROUND = math.floor(y/16)
         
         local cell = room.cells[X_ROUND][Y_ROUND]
-        if cell.level == 2 then
-            cell.level = 0
+        if cell.wall == true then
+            cell.wall = false
         else
-            cell.level = 2
-            local cellup = room.cells[X_ROUND+(Y_ROUND*14)+14]
-            if cellup ~= nil then
-                if cellup.level == 2 then
-                    cellup.level = 0
-                else
-                    cellup.level = 2
-                end
-            end
+            cell.wall = true
         end
         
         
+        local cellup = room.cells[X_ROUND+(Y_ROUND*14)+14]
+        if cellup ~= nil then
+            if cellup.wall == true then
+                cellup.wall = false
+            else
+                cellup.wall = true
+            end
+        end
+            
     else
     
     
@@ -585,7 +593,7 @@ function love.mousepressed(x, y, button)
         
         --local cell = room.cells[X_ROUND+(Y_ROUND*14)]
         local cell = room.cells[X_ROUND_level][Y_ROUND_level]
-        LEVEL = room:getNumber(X_ROUND_level, Y_ROUND_level)
+        LEVEL = room:getWallNumber(X_ROUND_level, Y_ROUND_level)
     end
 end
 
