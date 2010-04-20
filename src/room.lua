@@ -34,6 +34,8 @@ function Room.create()
     
     temp.cells = {}
     
+    temp.style = nil
+    
     for x=1,20 do
     temp.cells[x] = {}
         for y=1,14 do
@@ -147,18 +149,19 @@ function Room:getWallNumber(x, y)
 
 function Room:draw()
 
-    for x=2,4 do
-        for y=2,5 do
+    for x=2,19 do
+        for y=2,12 do
             local number = 0
             
             number = self:getWallNumber(x, y)
-            
-            local image = graphics.dungeon[number]
-            
-            if image ~= nil then
-                love.graphics.draw(graphics.dungeon[number], x*16, y*16)
+
+
+            if self.style ~= nil then
+                if graphics.dungeon[number] ~= nil then
+                    self.style:draw(graphics.dungeon[number], x*16, y*16)
+                end
             else
-                love.graphics.draw(graphics.dungeon[0], x*16, y*16)
+                -- love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
             end
         end
     end
@@ -166,8 +169,8 @@ end
 
 function Room:draw_block()
 
-    for x=2,4 do
-        for y=2,5 do
+    for x=1,20 do
+        for y=1,14 do
             local cell = self.cells[x][y]
             
             
@@ -178,5 +181,29 @@ function Room:draw_block()
                 love.graphics.draw(graphics["roomFREE"], x*16, y*16)
             end
         end
+    end
+end
+
+function Room:getCell(x, y)
+    return self.cells[x][y].level
+end
+
+function Room:setCell(x, y, value)
+    self.cells[x][y].level = value
+end
+
+function Room:setStyle(value)
+    self.style = value
+end
+
+function Room:save(filename)
+    local file = love.filesystem.newFile(filename)
+    file:open("w")
+
+    for y=1,14 do
+        for x=1,20 do
+            file:write(string.format("%d", self.cells[x][y].level))
+        end
+        file:write("\r\n")
     end
 end
