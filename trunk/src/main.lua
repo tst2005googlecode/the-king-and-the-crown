@@ -21,6 +21,7 @@ require("unit.lua")
 require("castle.lua")
 require("room.lua")
 require("cell.lua")
+require("style.lua")
 
 systems = {}
 current = 1
@@ -47,15 +48,10 @@ function love.load()
                 
                 }
     
-    graphics.tile = {}
+    graphics.theme = {}
+    graphics.theme["dungeon"] = Style.create("dungeon256x256.png", 16)
     
-    for y=0,15 do
-        for x=0,15 do
-            graphics.tile[x+(y*16)] = love.graphics.newQuad(x*16, y*16, 16, 16, 256, 256)
-        end
-    end
-    
-    graphics.dungeon[0] = love.graphics.newImage("room000.png")
+    --[[graphics.dungeon[0] = love.graphics.newImage("room000.png")
     graphics.dungeon[9] = love.graphics.newImage("room009.png")
     graphics.dungeon[11] = graphics.dungeon[9]
     graphics.dungeon[13] = graphics.dungeon[9]
@@ -247,6 +243,7 @@ function love.load()
     graphics.dungeon[2520] = graphics.dungeon[216]
     graphics.dungeon[2523] = graphics.dungeon[223]
     graphics.dungeon[2552] = graphics.dungeon[504]
+    graphics.dungeon[2553] = graphics.dungeon[504]
     graphics.dungeon[2554] = graphics.dungeon[506]
     graphics.dungeon[2556] = graphics.dungeon[504]
     graphics.dungeon[2557] = graphics.dungeon[504]
@@ -361,7 +358,7 @@ function love.load()
     graphics.dungeon[4093] = graphics.dungeon[2044]
     graphics.dungeon[4094] = love.graphics.newImage("room4094.png")
     graphics.dungeon[4095] = love.graphics.newImage("room4095.png")
-    
+    ]]--
     -- load 'CASTLE' sprite
     castle_sprite = love.graphics.newImage("castle.png");
     
@@ -371,6 +368,7 @@ function love.load()
     castle.y = 16
     
     room = Room.create()
+    room:setStyle(Style.create("dungeon256x256.png", 16))
     
     -- load 'GRASS' sprite
     grass_sprite = love.graphics.newImage("grass.png");
@@ -468,6 +466,13 @@ LEVEL = 0
 
 function love.update(dt)
 
+    if love.keyboard.isDown("up") then
+        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
+    end
+    if love.keyboard.isDown("down") then
+        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG - 1
+    end
+
     -- if love.mouse.isDown("l") then
         -- systems[current]:setPosition(love.mouse.getX(), love.mouse.getY())
         -- systems[current]:start()
@@ -479,9 +484,96 @@ function love.update(dt)
     -- end
 
     --systems[current]:update(dt)
+    
+    local decode = NUMBER_TO_DEBUG
+    
+    if (decode >= 2048) then
+        room.cells[4][5].wall = true
+        decode = decode - 2048
+    else
+        room.cells[4][5].wall = false
+    end
+    
+    if (decode >= 1024) then
+        room.cells[3][5].wall = true
+        decode = decode - 1024
+    else
+        room.cells[3][5].wall = false
+    end
+    
+    if (decode >= 512) then
+        room.cells[2][5].wall = true
+        decode = decode - 512
+    else
+        room.cells[2][5].wall = false
+    end
+    
+    if (decode >= 256) then
+        room.cells[4][4].wall = true
+        decode = decode - 256
+    else
+        room.cells[4][4].wall = false
+    end
+    
+    if (decode >= 128) then
+        room.cells[3][4].wall = true
+        decode = decode - 128
+    else
+        room.cells[3][4].wall = false
+    end
+    
+    if (decode >= 64) then
+        room.cells[2][4].wall = true
+        decode = decode - 64
+    else
+        room.cells[2][4].wall = false
+    end
+
+    if (decode >= 32) then
+        room.cells[4][3].wall = true
+        decode = decode - 32
+    else
+        room.cells[4][3].wall = false
+    end
+
+    if (decode >= 16) then
+        room.cells[3][3].wall = true
+        decode = decode - 16
+    else
+        room.cells[3][3].wall = false
+    end
+
+    if (decode >= 8) then
+        room.cells[2][3].wall = true
+        decode = decode - 8
+    else
+        room.cells[2][3].wall = false
+    end
+
+    if (decode >= 4) then
+        room.cells[4][2].wall = true
+        decode = decode - 4
+    else
+        room.cells[4][2].wall = false
+    end
+
+    if (decode >= 2) then
+        room.cells[3][2].wall = true
+        decode = decode - 2
+    else
+        room.cells[3][2].wall = false
+    end
+
+    if (decode >= 1) then
+        room.cells[2][2].wall = true
+        decode = decode - 1
+    else
+        room.cells[2][2].wall = false
+    end
+
 end
 
-DRAW_BLOCK = 0
+DRAW_BLOCK = 1
 
 function love.draw()
 
@@ -500,14 +592,24 @@ function love.draw()
         --love.graphics.setColorMode("modulate")
         --love.graphics.setBlendMode("additive")
 
-        love.graphics.draw(systems[current], 0, 0)
-        love.graphics.print("System: [" .. current .. "/"..table.getn(systems).."] - " .. systems[current]:count() .. " particles.", 30, 570);
-        love.graphics.print("Click: spawn particles. Mousewheel: change system.", 30, 530);
-        love.graphics.print("Press escape to exit.", 30, 550);
+
 love.graphics.print("DEBUG: number of units = " .. #units .. ".", 30, 400);
 love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 450);
 
+        local nb_dungeon = graphics.dungeon[NUMBER_TO_DEBUG]
+        if nb_dungeon == nil then
+            nb_dungeon = -1
+        end
+love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " .. nb_dungeon .. ".", 30, 500);
+
         love.graphics.draw(castle_sprite, castle["x"]*32, castle["y"]*32)
+        
+        
+        -- draw the selected tile
+        graphics.theme["dungeon"]:draw(NUMBER_OF_QUAD, 30, 550);
+        love.graphics.print("NUMBER_OF_QUAD [" .. NUMBER_OF_QUAD .. "].", 30, 580);
+        
+        
         
         for x=1,#units do
             local unit = units[x]
@@ -519,17 +621,13 @@ unit_type = Unit.UNKNOW
 
 function love.mousepressed(x, y, button)
     if button == "wu" then
-        unit_type = unit_type + 1
-    
-        current = current + 1;
-        if current > table.getn(systems) then current = table.getn(systems) end
+        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
+        return
     end
 
     if button == "wd" then
-        unit_type = unit_type - 1
-        
-        current = current - 1;
-        if current < 1 then current = 1 end
+        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG - 1
+        return
     end
     
     --[[  if button == "l" then
@@ -576,7 +674,7 @@ function love.mousepressed(x, y, button)
         end
         
         
-        local cellup = room.cells[X_ROUND+(Y_ROUND*14)+14]
+        local cellup = room.cells[X_ROUND][Y_ROUND+1]
         if cellup ~= nil then
             if cellup.wall == true then
                 cellup.wall = false
@@ -597,7 +695,11 @@ function love.mousepressed(x, y, button)
     end
 end
 
-function love.keypressed(key)
+NUMBER_TO_DEBUG = 0
+
+NUMBER_OF_QUAD = 0
+
+function love.keypressed(key, unicode)
 
     local delta = 1
     
@@ -614,6 +716,20 @@ function love.keypressed(key)
         castle["x"] = math.min(castle["x"] + delta, 600)
     end
     
+    
+    if key == "p" then
+        graphics.dungeon[NUMBER_TO_DEBUG] = NUMBER_OF_QUAD
+    end
+    
+    if key == "left" then
+        NUMBER_OF_QUAD = NUMBER_OF_QUAD - 1
+        NUMBER_OF_QUAD = math.max(0, NUMBER_OF_QUAD)
+    end
+    if key == "right" then
+        NUMBER_OF_QUAD = NUMBER_OF_QUAD + 1
+    end
+    
+
     if key == "b" then
         if DRAW_BLOCK == 0 then
             DRAW_BLOCK = 1
@@ -621,6 +737,21 @@ function love.keypressed(key)
             DRAW_BLOCK = 0
         end
     end
+    
+    if key == "y" then
+        room:make_room(5, 5, 6, 6, 0)
+    end
+    if key == "f1" then
+        room:save("level1.txt")
+    end
+    
+    if key == "f4" then
+        savedata()
+    end
+    if key == "f5" then
+        loaddata()
+    end
+
 
     if key == "escape" then
         love.event.push("q")
@@ -630,4 +761,33 @@ function love.keypressed(key)
         love.filesystem.load("main.lua")()
         love.load()
     end
+end
+
+function savedata()
+    
+    local file = love.filesystem.newFile("dungeonparse.txt")
+    file:open("w")
+    
+    for x=0,#graphics.dungeon do
+        local num = graphics.dungeon[x]
+        if num ~= nil then
+            file:write(string.format("%d=%d", x, num))
+            file:write("\r\n")
+        end
+    end
+    
+    file:close()
+end
+    
+function loaddata()
+    
+    local file = love.filesystem.newFile("dungeonparse.txt")
+    file:open("r")
+    
+    for line in file:lines() do
+        gu, gp = string.gmatch(line, "(%w+)=(%w+)")
+        graphics.dungeon[gu] = gp
+    end
+    
+    file:close()
 end
