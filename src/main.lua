@@ -33,6 +33,9 @@ units = {}
 -- @author Damien Carol <damien.carol@gmail.com>
 function love.load()
 
+    tilesetImg = love.graphics.newImage("dungeon256x256.png")
+                
+
     -- load sprites defined in table
     graphics = {castle = love.graphics.newImage("castle.png"),
                 grass = love.graphics.newImage("grass.png"),
@@ -468,9 +471,16 @@ function love.update(dt)
 
     if love.keyboard.isDown("up") then
         NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
+        if NUMBER_TO_DEBUG > 4096 then
+            NUMBER_TO_DEBUG = 0
+        end
     end
     if love.keyboard.isDown("down") then
         NUMBER_TO_DEBUG = NUMBER_TO_DEBUG - 1
+        
+        if NUMBER_TO_DEBUG < 0 then
+            NUMBER_TO_DEBUG = 4096
+        end
     end
 
     -- if love.mouse.isDown("l") then
@@ -609,7 +619,7 @@ love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " ..
         graphics.theme["dungeon"]:draw(NUMBER_OF_QUAD, 30, 550);
         love.graphics.print("NUMBER_OF_QUAD [" .. NUMBER_OF_QUAD .. "].", 30, 580);
         
-        
+        love.graphics.draw(tilesetImg, 400, 0)
         
         for x=1,#units do
             local unit = units[x]
@@ -620,6 +630,15 @@ end
 unit_type = Unit.UNKNOW
 
 function love.mousepressed(x, y, button)
+    
+    if (x > 400 and x < 656 and y > 0 and y < 256) then
+        X_ROUND = math.floor((x-400)/16)
+        Y_ROUND = math.floor(y/16)
+        
+        NUMBER_OF_QUAD = X_ROUND+Y_ROUND*16
+        return
+    end
+    
     if button == "wu" then
         NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
         return
@@ -663,6 +682,8 @@ function love.mousepressed(x, y, button)
     end   ]]--
 
     if button == "l" then
+    
+        
         X_ROUND = math.floor(x/16)
         Y_ROUND = math.floor(y/16)
         
@@ -674,14 +695,14 @@ function love.mousepressed(x, y, button)
         end
         
         
-        local cellup = room.cells[X_ROUND][Y_ROUND+1]
-        if cellup ~= nil then
-            if cellup.wall == true then
-                cellup.wall = false
-            else
-                cellup.wall = true
-            end
-        end
+        -- local cellup = room.cells[X_ROUND][Y_ROUND+1]
+        -- if cellup ~= nil then
+            -- if cellup.wall == true then
+                -- cellup.wall = false
+            -- else
+                -- cellup.wall = true
+            -- end
+        -- end
             
     else
     
@@ -692,6 +713,8 @@ function love.mousepressed(x, y, button)
         --local cell = room.cells[X_ROUND+(Y_ROUND*14)]
         local cell = room.cells[X_ROUND_level][Y_ROUND_level]
         LEVEL = room:getWallNumber(X_ROUND_level, Y_ROUND_level)
+        
+        NUMBER_TO_DEBUG = LEVEL
     end
 end
 
@@ -768,9 +791,9 @@ function savedata()
     local file = love.filesystem.newFile("dungeonparse.txt")
     file:open("w")
     
-    for x=0,#graphics.dungeon do
+    for x=0,4096 do
         local num = graphics.dungeon[x]
-        if num ~= nil then
+        if num ~= nil and num ~= 0 then
             file:write(string.format("%d=%d", x, num))
             file:write("\r\n")
         end
@@ -785,9 +808,12 @@ function loaddata()
     file:open("r")
     
     for line in file:lines() do
-        gu, gp = string.gmatch(line, "(%w+)=(%w+)")
-        graphics.dungeon[gu] = gp
+        for k, v in string.gmatch(line, "(%w+)=(%w+)") do
+            --t[k] = v
+            love.graphics.print("[" .. k .. "]= " .. v .. ".", 30, 570);
+            graphics.dungeon[tonumber(k)] = tonumber(v)
+        end
     end
-    
+        
     file:close()
 end
