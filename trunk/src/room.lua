@@ -34,7 +34,8 @@ function Room.create()
     
     temp.cells = {}
     
-    temp.style = nil
+    temp.stylewall = nil
+    temp.stylewater = nil
     
     for x=1,20 do
     temp.cells[x] = {}
@@ -43,11 +44,41 @@ function Room.create()
             cell.x = x
             cell.y = y
             cell.wall = false
+            cell.water = false
             temp.cells[x][y] = cell
         end
     end
     
     return temp
+end
+
+function Room:getWaterNumber(x, y)
+
+    if self.cells[x] == nil then
+        return 0
+    end
+    if self.cells[x][y] == nil then
+        return 0
+    end
+
+    local cell0 = self.cells[x][y]
+    local cell1 = self.cells[x][y-1]
+
+    local number = 0
+    
+    if cell0 ~= nil then
+        if cell0.water == true then
+            number = number + 1
+        end
+    end
+    
+    if cell1 ~= nil then
+        if cell1.water == true then
+            number = number + 2
+        end
+    end
+
+    return number
 end
 
 -- x coordinate of the cell
@@ -147,7 +178,7 @@ function Room:getWallNumber(x, y)
     return number
  end
 
-function Room:draw()
+function Room:draw_wall()
 
     for x=2,19 do
         for y=2,12 do
@@ -156,9 +187,11 @@ function Room:draw()
             number = self:getWallNumber(x, y)
 
 
-            if self.style ~= nil then
+            if self.stylewall ~= nil then
                 if graphics.dungeon[number] ~= nil then
-                    self.style:draw(graphics.dungeon[number], x*16, y*16)
+                    self.stylewall:draw(graphics.dungeon[number], x*16, y*16)
+                else
+                    self.stylewall:draw(1, x*16, y*16)
                 end
             else
                 -- love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
@@ -167,7 +200,29 @@ function Room:draw()
     end
 end
 
-function Room:draw_block()
+function Room:draw_water()
+
+    for x=2,19 do
+        for y=2,12 do
+            local number = 0
+            
+            number = self:getWaterNumber(x, y)
+
+
+            if self.stylewater ~= nil then
+                if graphics.water[number] ~= nil then
+                    self.stylewater:draw(graphics.water[number], x*16, y*16)
+                else
+                    -- self.stylewater:draw(1, x*16, y*16)
+                end
+            else
+                -- love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
+            end
+        end
+    end
+end
+
+function Room:draw_wall_block()
 
     for x=1,20 do
         for y=1,14 do
@@ -176,6 +231,23 @@ function Room:draw_block()
             
             -- test magic number and check what to draw
             if cell.wall == true then
+                love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
+            else
+                love.graphics.draw(graphics["roomFREE"], x*16, y*16)
+            end
+        end
+    end
+end
+
+function Room:draw_water_block()
+
+    for x=1,20 do
+        for y=1,14 do
+            local cell = self.cells[x][y]
+            
+            
+            -- test magic number and check what to draw
+            if cell.water == true then
                 love.graphics.draw(graphics["roomBLOCK"], x*16, y*16)
             else
                 love.graphics.draw(graphics["roomFREE"], x*16, y*16)
@@ -193,7 +265,11 @@ function Room:setCell(x, y, value)
 end
 
 function Room:setStyle(value)
-    self.style = value
+    self.stylewall = value
+end
+
+function Room:setStyleWater(value)
+    self.stylewater = value
 end
 
 function Room:save(filename)
