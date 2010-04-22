@@ -21,17 +21,13 @@
 Unit = {}
 Unit.__index = Unit
 
-Unit.UNKNOW = 0
-Unit.ARCHER = 1
-Unit.KNIGHT = 2
-
 function Unit.create()
     local temp = {}
     setmetatable(temp, Unit)
 
     temp.x = 0
     temp.y = 0
-    temp.type = Unit.UNKNOW
+    temp.unittype = UnitType.UNKNOW
     temp.selected = 0
     temp.velocity = 100
     return temp
@@ -52,12 +48,12 @@ function Unit:update(dt, up, down, left, right)
     end
 end
 
+function Unit:setUnitType(unittype)
+    self.unittype = unittype
+end
+
 function Unit:draw()
-    -- if self.type == Unit.ARCHER then
-        -- love.graphics.draw(graphics["archer001"], self.x-16, self.y-16)
-    -- elseif self.type == Unit.KNIGHT then
-        -- love.graphics.draw(graphics["knight001"], self.x-16, self.y-16)
-    -- else
-        -- love.graphics.draw(graphics["unknow001"], self.x-16, self.y-16)
-    -- end
+    
+    self.unittype:draw(self.x, self.y)
+
 end

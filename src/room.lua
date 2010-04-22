@@ -48,6 +48,13 @@ function Room.create()
         end
     end
     
+    temp.hero = Unit.create()
+    temp.hero.x = 50
+    temp.hero.y = 50
+    temp.hero:setUnitType(UnitType.HERO)
+    
+    temp.monsters = {}
+    
     return temp
 end
 
@@ -255,6 +262,21 @@ function Room:draw_water_block()
     end
 end
 
+function Room:draw_monster()
+
+    local x_mon
+    for x_mon=1,#self.monsters do
+        self.monsters[x_mon]:draw()
+    end
+
+end
+
+function Room:draw_hero()
+
+    self.hero:draw()
+
+end
+
 function Room:getCell(x, y)
     return self.cells[x][y].level
 end
@@ -290,6 +312,17 @@ function Room:save(filename)
         end
     end
     file:close()
+    
+    
+    local file = love.filesystem.newFile("mon-" .. filename)
+    file:open("w")
+
+    local x_mon
+    for x_mon=0,self.monsters do
+        file:write("2")
+        file:write("\r\n")
+    end
+    file:close()
 end
 
 -- Load a level
@@ -322,4 +355,33 @@ function Room:load(filename)
         end
         file:close()
     end
+    
+    do -- for monster
+        local file = love.filesystem.newFile(filename)
+        file:open("r")
+        
+        local xi = 1
+        local yi = 1
+        for line in file:lines() do
+            local level = tonumber(line)
+            if level == 2 then
+                self.cells[xi][yi].wall = true
+            else
+                self.cells[xi][yi].wall = false
+            end
+            if level == -1 then
+                self.cells[xi][yi].water = true
+            else
+                self.cells[xi][yi].water = false
+            end
+
+            xi = xi + 1
+            if xi == Room.MAXWIDTH + 1 then
+                xi = 1
+                yi = yi + 1
+            end
+        end
+        file:close()
+    end
+    
 end
