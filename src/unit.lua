@@ -33,15 +33,31 @@ function Unit.create()
     temp.y = 0
     temp.type = Unit.UNKNOW
     temp.selected = 0
+    temp.velocity = 100
     return temp
 end
 
-function Unit:draw()
-    if self.type == Unit.ARCHER then
-        love.graphics.draw(graphics["archer001"], self.x-16, self.y-16)
-    elseif self.type == Unit.KNIGHT then
-        love.graphics.draw(graphics["knight001"], self.x-16, self.y-16)
-    else
-        love.graphics.draw(graphics["unknow001"], self.x-16, self.y-16)
+function Unit:update(dt, up, down, left, right)
+    if up == 1 then
+        self.y = self.y - dt * self.velocity
     end
+    if down == 1 then
+        self.y = self.y + dt * self.velocity
+    end
+    if left == 1 then
+        self.x = self.x - dt * self.velocity
+    end
+    if right == 1 then
+        self.x = self.x + dt * self.velocity
+    end
+end
+
+function Unit:draw()
+    -- if self.type == Unit.ARCHER then
+        -- love.graphics.draw(graphics["archer001"], self.x-16, self.y-16)
+    -- elseif self.type == Unit.KNIGHT then
+        -- love.graphics.draw(graphics["knight001"], self.x-16, self.y-16)
+    -- else
+        -- love.graphics.draw(graphics["unknow001"], self.x-16, self.y-16)
+    -- end
 end
