@@ -21,9 +21,8 @@
 Room = {}
 Room.__index = Room
 
--- Unit.UNKNOW = 0
--- Unit.ARCHER = 1
--- Unit.KNIGHT = 2
+Room.MAXWIDTH = 30
+Room.MAXHEIGHT = 25
 
 function Room.create()
     local temp = {}
@@ -37,13 +36,13 @@ function Room.create()
     temp.stylewall = nil
     temp.stylewater = nil
     
-    for x=1,20 do
+    for x=1,Room.MAXWIDTH do
     temp.cells[x] = {}
-        for y=1,14 do
+        for y=1,Room.MAXHEIGHT do
             local cell = Cell.create()
             cell.x = x
             cell.y = y
-            cell.wall = false
+            cell.wall = true
             cell.water = false
             temp.cells[x][y] = cell
         end
@@ -180,8 +179,8 @@ function Room:getWallNumber(x, y)
 
 function Room:draw_wall()
 
-    for x=2,19 do
-        for y=2,12 do
+    for x=2,Room.MAXWIDTH-1 do
+        for y=2,Room.MAXHEIGHT-2 do
             local number = 0
             
             number = self:getWallNumber(x, y)
@@ -202,8 +201,8 @@ end
 
 function Room:draw_water()
 
-    for x=2,19 do
-        for y=2,12 do
+    for x=2,Room.MAXWIDTH-1 do
+        for y=2,Room.MAXHEIGHT-2 do
             local number = 0
             
             number = self:getWaterNumber(x, y)
@@ -224,8 +223,8 @@ end
 
 function Room:draw_wall_block()
 
-    for x=1,20 do
-        for y=1,14 do
+    for x=1,Room.MAXWIDTH do
+        for y=1,Room.MAXHEIGHT do
             local cell = self.cells[x][y]
             
             
@@ -241,8 +240,8 @@ end
 
 function Room:draw_water_block()
 
-    for x=1,20 do
-        for y=1,14 do
+    for x=1,Room.MAXWIDTH do
+        for y=1,Room.MAXHEIGHT do
             local cell = self.cells[x][y]
             
             
@@ -276,10 +275,51 @@ function Room:save(filename)
     local file = love.filesystem.newFile(filename)
     file:open("w")
 
-    for y=1,14 do
-        for x=1,20 do
-            file:write(string.format("%d", self.cells[x][y].level))
+    for y=1,Room.MAXHEIGHT do
+        for x=1,Room.MAXWIDTH do
+            if self.cells[x][y].wall then
+                file:write("2")
+                file:write("\r\n")
+            elseif self.cells[x][y].water then
+                file:write("-1")
+                file:write("\r\n")
+            else
+                file:write("0")
+                file:write("\r\n")
+            end
         end
-        file:write("\r\n")
+    end
+    file:close()
+end
+
+-- Load a level
+function Room:load(filename)
+    
+    do -- for dungeon layer
+        local file = love.filesystem.newFile(filename)
+        file:open("r")
+        
+        local xi = 1
+        local yi = 1
+        for line in file:lines() do
+            local level = tonumber(line)
+            if level == 2 then
+                self.cells[xi][yi].wall = true
+            else
+                self.cells[xi][yi].wall = false
+            end
+            if level == -1 then
+                self.cells[xi][yi].water = true
+            else
+                self.cells[xi][yi].water = false
+            end
+
+            xi = xi + 1
+            if xi == Room.MAXWIDTH + 1 then
+                xi = 1
+                yi = yi + 1
+            end
+        end
+        file:close()
     end
 end
