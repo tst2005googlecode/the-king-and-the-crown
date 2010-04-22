@@ -32,8 +32,6 @@ MONSTER = 66
 MODE = WALL
 
 
-MONSTER = UnitType.SKELETON
-
 
 --- Call back function of the 'love' engine
 -- Load all sprites
@@ -148,19 +146,12 @@ function love.draw()
         -- print the level number
         love.graphics.print("ROOM_NUMBER = [" .. ROOM_NUMBER .. "].", 30, 580);
     
-    else -- monster mode 
+    else
         -- Draw level
         room:draw_wall()
         room:draw_water()
         room:draw_monster()
         room:draw_hero()
-        
-        -- monster mode
-        local x = love.mouse.getX()
-        local y = love.mouse.getY()
-
-        UnitType.SKELETON:draw(x, y)
-
     end
 end
 
@@ -195,17 +186,12 @@ function love.mousepressed(x, y, button)
             else
                 cell.wall = true
             end
-        elseif MODE == WATER then
+        else
             if cell.water == true then
                 cell.water = false
             else
                 cell.water = true
             end
-        elseif MODE == MONSTER then
-            local new_monster = Unit.create()
-            new_monster.x = x
-            new_monster.y = y
-            table.insert(room.monsters, new_monster)
         end
         
         -- local cellup = room.cells[X_ROUND][Y_ROUND+1]
@@ -282,9 +268,6 @@ function love.keypressed(key, unicode)
 
 
 
-    if key == "f1" then
-        MODE = MONSTER
-    end
     if key == "f2" then
         MODE = WATER
     end

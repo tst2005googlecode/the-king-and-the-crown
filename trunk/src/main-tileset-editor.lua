@@ -16,7 +16,7 @@
 --    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 --
 
-
+require("unittype.lua")
 require("unit.lua")
 require("castle.lua")
 require("room.lua")
@@ -28,11 +28,6 @@ WATER = -1
 
 MODE = WALL
 
-systems = {}
-current = 1
-
-units = {}
-
 --- Call back function of the 'love' engine
 -- Load all sprites
 -- @author Damien Carol <damien.carol@gmail.com>
@@ -42,14 +37,7 @@ function love.load()
                 
 
     -- load sprites defined in table
-    graphics = {castle = love.graphics.newImage("castle.png"),
-                grass = love.graphics.newImage("grass.png"),
-                unknow001 = love.graphics.newImage("unknow001.png"),
-                archer001 = love.graphics.newImage("archer001.png"),
-                knight001 = love.graphics.newImage("knight001.png"),
-                
-                
-                roomBLOCK = love.graphics.newImage("block.png"),
+    graphics = {roomBLOCK = love.graphics.newImage("block.png"),
                 roomFREE = love.graphics.newImage("free.png"),
                 
                 dungeon = {},
@@ -59,105 +47,23 @@ function love.load()
     
     graphics.theme = {}
     graphics.theme["dungeon"] = Style.create("dungeon256x256.png", 16)
-    
-    -- load 'CASTLE' sprite
-    castle_sprite = love.graphics.newImage("castle.png");
-    
-    -- create one castle entity
-    castle = Castle:create()
-    castle.x = 15
-    castle.y = 16
-    
+
+
+
     room = Room.create()
     room:setStyle(Style.create("dungeon256x256.png", 16))
     room:setStyleWater(Style.create("dungeon256x256.png", 16))
     
     -- load 'GRASS' sprite
-    grass_sprite = love.graphics.newImage("grass.png");
+    -- grass_sprite = love.graphics.newImage("grass.png");
     
-    part1 = love.graphics.newImage("part1.png");
-    cloud = love.graphics.newImage("cloud.png");
-    square = love.graphics.newImage("square.png")
-    font = love.graphics.newFont(love._vera_ttf, 10)
+    -- part1 = love.graphics.newImage("part1.png");
+    -- cloud = love.graphics.newImage("cloud.png");
+    -- square = love.graphics.newImage("square.png")
+    -- font = love.graphics.newFont(love._vera_ttf, 10)
 
-    love.graphics.setFont(font)
-    love.graphics.setColor(200, 200, 200);
-
-    local p = love.graphics.newParticleSystem(part1, 1000)
-    p:setEmissionRate(100)
-    p:setSpeed(300, 400)
-    p:setGravity(0)
-    p:setSize(2, 1)
-    p:setColor(255, 255, 255, 255, 58, 128, 255, 0)
-    p:setPosition(400, 300)
-    p:setLifetime(1)
-    p:setParticleLife(1)
-    p:setDirection(0)
-    p:setSpread(360)
-    p:setRadialAcceleration(-2000)
-    p:setTangentialAcceleration(1000)
-    p:stop()
-    table.insert(systems, p)
-
-    p = love.graphics.newParticleSystem(cloud, 1000)
-    p:setEmissionRate(100)
-    p:setSpeed(200, 250)
-    p:setGravity(100, 200)
-    p:setSize(1, 1)
-    p:setColor(16, 81, 229, 255, 176, 16, 229, 0)
-    p:setPosition(400, 300)
-    p:setLifetime(1)
-    p:setParticleLife(1)
-    p:setDirection(180)
-    p:setSpread(20)
-    --p:setRadialAcceleration(-200, -300)
-    p:stop()
-    table.insert(systems, p)
-
-    p = love.graphics.newParticleSystem(square, 1000)
-    p:setEmissionRate(60)
-    p:setSpeed(200, 250)
-    p:setGravity(100, 200)
-    p:setSize(1, 2)
-    p:setColor(240, 3, 176, 255, 204, 240, 3, 0)
-    p:setPosition(400, 300)
-    p:setLifetime(1)
-    p:setParticleLife(2)
-    p:setDirection(90)
-    p:setSpread(0)
-    p:setSpin(300, 800)
-    p:stop()
-    table.insert(systems, p)
-
-    p = love.graphics.newParticleSystem(part1, 1000)
-    p:setEmissionRate(1000)
-    p:setSpeed(300, 400)
-    p:setSize(2, 1)
-    p:setColor(220, 105, 20, 255, 194, 30, 18, 0)
-    p:setPosition(400, 300)
-    p:setLifetime(0.1)
-    p:setParticleLife(0.2)
-    p:setDirection(0)
-    p:setSpread(360)
-    p:setTangentialAcceleration(1000)
-    p:setRadialAcceleration(-2000)
-    p:stop()
-    table.insert(systems, p)
-
-    p = love.graphics.newParticleSystem(part1, 1000)
-    p:setEmissionRate(200)
-    p:setSpeed(300, 400)
-    p:setSize(1, 2)
-    p:setColor(255, 255, 255, 255, 255, 128, 128, 0)
-    p:setPosition(400, 300)
-    p:setLifetime(1)
-    p:setParticleLife(2)
-    p:setDirection(0)
-    p:setSpread(360)
-    p:setTangentialAcceleration(2000)
-    p:setRadialAcceleration(-8000)
-    p:stop()
-    table.insert(systems, p)
+    -- love.graphics.setFont(font)
+    -- love.graphics.setColor(200, 200, 200);
 
 end
 
@@ -305,9 +211,9 @@ function love.draw()
 
         --love.graphics.setColorMode("modulate")
         --love.graphics.setBlendMode("additive")
+        --love.graphics.print("DEBUG: number of units = " .. #units .. ".", 30, 400);
 
 
-love.graphics.print("DEBUG: number of units = " .. #units .. ".", 30, 400);
 love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 450);
         
         local nb_dungeon = -1
@@ -322,7 +228,7 @@ love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " .. Y_ROUND .. " level = 
         end
 love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " .. nb_dungeon .. ".", 30, 500);
 
-        love.graphics.draw(castle_sprite, castle["x"]*32, castle["y"]*32)
+
         
         
         -- draw the selected tile
@@ -330,11 +236,7 @@ love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " ..
         love.graphics.print("NUMBER_OF_QUAD [" .. NUMBER_OF_QUAD .. "]. LEVEL = " .. MODE .. " .", 30, 580);
         
         love.graphics.draw(tilesetImg, 400, 0)
-        
-        for x=1,#units do
-            local unit = units[x]
-            unit:draw()
-        end
+
 end
 
 unit_type = Unit.UNKNOW
@@ -447,21 +349,7 @@ NUMBER_OF_QUAD = 0
 
 function love.keypressed(key, unicode)
 
-    local delta = 1
-    
-    if key == "up" then
-        castle["y"] = math.max(castle["y"] - delta, 0)
-    end
-    if key == "down" then
-        castle["y"] = math.min(castle["y"] + delta, 600)
-    end
-    if key == "left" then
-        castle["x"] = math.max(castle["x"] - delta, 0)
-    end
-    if key == "right" then
-        castle["x"] = math.min(castle["x"] + delta, 600)
-    end
-    
+
     
     if key == "p" then
         if MODE == WALL then
