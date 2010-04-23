@@ -19,4 +19,6 @@
 function love.conf(t)
     t.title = "The King and the Crown"
     t.author = "D. Carol <damien.carol@gmail.com>"
+    t.screen.width = 640
+    t.screen.height = 480
 end
