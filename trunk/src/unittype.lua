@@ -26,7 +26,7 @@ function UnitType.create(name, filename)
 
     temp.name = name
 
-    temp.img = love.graphics.newImage(filename)
+    temp.img_stand_front = love.graphics.newImage(string.format("%s%03d.png", name, 1))
 
     return temp
 end
@@ -52,9 +52,9 @@ end
 
 function UnitType:draw(x, y)
     -- because 
-    love.graphics.draw(self.img, x-16, y-16)
+    love.graphics.draw(self.img_stand_front, x-8, y-29)
 end
 
-UnitType.UNKNOW = UnitType.create("???", "unknow001.png")
-UnitType.HERO = UnitType.create("Hero", "archer001.png")
-UnitType.SKELETON = UnitType.create("Skeleton", "knight001.png")
+UnitType.UNKNOW = UnitType.create("unknow")
+UnitType.HERO = UnitType.create("hero")
+UnitType.SKELETON = UnitType.create("skeleton")
