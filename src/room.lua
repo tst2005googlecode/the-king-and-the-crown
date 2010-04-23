@@ -318,7 +318,7 @@ function Room:save(filename)
     file:open("w")
 
     local x_mon
-    for x_mon=0,self.monsters do
+    for x_mon=1,#self.monsters do
         file:write("2")
         file:write("\r\n")
     end
@@ -357,31 +357,32 @@ function Room:load(filename)
     end
     
     do -- for monster
-        local file = love.filesystem.newFile(filename)
-        file:open("r")
+        self.monsters = {}
+        -- local file = love.filesystem.newFile(filename)
+        -- file:open("r")
         
-        local xi = 1
-        local yi = 1
-        for line in file:lines() do
-            local level = tonumber(line)
-            if level == 2 then
-                self.cells[xi][yi].wall = true
-            else
-                self.cells[xi][yi].wall = false
-            end
-            if level == -1 then
-                self.cells[xi][yi].water = true
-            else
-                self.cells[xi][yi].water = false
-            end
+        -- local xi = 1
+        -- local yi = 1
+        -- for line in file:lines() do
+            -- local level = tonumber(line)
+            -- if level == 2 then
+                -- self.cells[xi][yi].wall = true
+            -- else
+                -- self.cells[xi][yi].wall = false
+            -- end
+            -- if level == -1 then
+                -- self.cells[xi][yi].water = true
+            -- else
+                -- self.cells[xi][yi].water = false
+            -- end
 
-            xi = xi + 1
-            if xi == Room.MAXWIDTH + 1 then
-                xi = 1
-                yi = yi + 1
-            end
-        end
-        file:close()
+            -- xi = xi + 1
+            -- if xi == Room.MAXWIDTH + 1 then
+                -- xi = 1
+                -- yi = yi + 1
+            -- end
+        -- end
+        -- file:close()
     end
     
 end
