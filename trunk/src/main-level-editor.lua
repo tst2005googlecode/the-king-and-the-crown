@@ -127,7 +127,7 @@ function love.draw()
 
 
         love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " 
-            .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 450)
+            .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 430)
         
         local nb_dungeon = -1
         if MODE == WALL then
@@ -140,13 +140,13 @@ function love.draw()
             nb_dungeon = -1
         end
         love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " 
-            .. nb_dungeon .. ".", 30, 500);
+            .. nb_dungeon .. ".", 30, 440);
 
 
 
 
         -- print the level number
-        love.graphics.print("ROOM_NUMBER = [" .. ROOM_NUMBER .. "].", 30, 580);
+        love.graphics.print("ROOM_NUMBER = [" .. ROOM_NUMBER .. "].", 30, 450);
     
     else -- monster mode 
         -- Draw level
