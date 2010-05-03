@@ -23,13 +23,6 @@ require("room.lua")
 require("cell.lua")
 require("style.lua")
 
-ROOM_NUMBER = 1
-
-WALL = 2
-WATER = -1
-MONSTER = 66
-
-MODE = WALL
 
 
 
@@ -38,49 +31,12 @@ MODE = WALL
 -- @author Damien Carol <damien.carol@gmail.com>
 function love.load()
 
-    -- tilesetImg = love.graphics.newImage("dungeon256x256.png")
-                
+    my_unit = Unit.create()
+    my_unit.x = 100
+    my_unit.y = 100
+    my_unit:setUnitType(UnitType.HERO)
 
-    -- load sprites defined in table
-    graphics = {castle = love.graphics.newImage("castle.png"),
-                grass = love.graphics.newImage("grass.png"),
-                unknow001 = love.graphics.newImage("unknow001.png"),
-                archer001 = love.graphics.newImage("archer001.png"),
-                knight001 = love.graphics.newImage("knight001.png"),
-                
-                
-                roomBLOCK = love.graphics.newImage("block.png"),
-                roomFREE = love.graphics.newImage("free.png"),
-                
-                dungeon = {},
-                water = {},
-                
-                }
-    
-    graphics.theme = {}
-    graphics.theme["dungeon"] = Style.create("dungeon256x256.png", 16)
-    
-
-    
-    -- create main room object (all level use the same room object)
-    room = Room.create()
-    room:setStyle(Style.create("dungeon256x256.png", 16))
-    room:setStyleWater(Style.create("dungeon256x256.png", 16))
-
-
-    font = love.graphics.newFont("vinque.ttf", 10)
-    love.graphics.setFont(font)
-
-
-
-
-    loaddata()
 end
-
-direction = 0
-X_ROUND = 0
-Y_ROUND = 0
-LEVEL = 0
 
 frame_num_time = 0
 frame_num = 1
@@ -98,19 +54,13 @@ function love.update(dt)
         frame_num = 1
     end
 
-    if love.keyboard.isDown("up") then
-        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
-        if NUMBER_TO_DEBUG > 4096 then
-            NUMBER_TO_DEBUG = 0
-        end
-    end
-    if love.keyboard.isDown("down") then
-        NUMBER_TO_DEBUG = NUMBER_TO_DEBUG - 1
-        
-        if NUMBER_TO_DEBUG < 0 then
-            NUMBER_TO_DEBUG = 4096
-        end
-    end
+    
+    
+    
+    my_unit:update(dt, love.keyboard.isDown("up"),
+        love.keyboard.isDown("down"), 
+        love.keyboard.isDown("left"),
+        love.keyboard.isDown("right"))
 
 end
 
@@ -118,16 +68,27 @@ DRAW_BLOCK = 0
 
 function love.draw()
 
-    UnitType.HERO:draw_back(50, 20, frame_num)
-    UnitType.HERO:draw_back_stand(50, 40)
+    local my_type = UnitType.HERO
+
+    my_type:draw_back(50, 20, frame_num)
+    my_type:draw_back_stand(50, 40)
+
+
+    my_type:draw_backside_stand(35, 50)
+    my_type:draw_backside(15, 50, frame_num)
+
+
+    my_type:draw_side_stand(65, 50)
+    my_type:draw_side(85, 50, frame_num)
+
+
+    my_type:draw_front_stand(50, 60)
+    my_type:draw_front(50, 80, frame_num)
     
     
-    UnitType.HERO:draw_side_stand(65, 50)
-    UnitType.HERO:draw_side(85, 50, frame_num)
     
     
-    UnitType.HERO:draw_front_stand(50, 60)
-    UnitType.HERO:draw_front(50, 80, frame_num)
+    my_unit:draw()
 end
 
 
@@ -204,12 +165,12 @@ function love.keypressed(key, unicode)
 
     local delta = 1
     
-    if key == "up" then
-        ROOM_NUMBER = ROOM_NUMBER + 1
-    end
-    if key == "down" then
-        ROOM_NUMBER = ROOM_NUMBER - 1
-    end
+    -- if key == "up" then
+        -- ROOM_NUMBER = ROOM_NUMBER + 1
+    -- end
+    -- if key == "down" then
+        -- ROOM_NUMBER = ROOM_NUMBER - 1
+    -- end
     
     
     if key == "p" then
@@ -220,13 +181,13 @@ function love.keypressed(key, unicode)
         end
     end
     
-    if key == "left" then
-        NUMBER_OF_QUAD = NUMBER_OF_QUAD - 1
-        NUMBER_OF_QUAD = math.max(0, NUMBER_OF_QUAD)
-    end
-    if key == "right" then
-        NUMBER_OF_QUAD = NUMBER_OF_QUAD + 1
-    end
+    -- if key == "left" then
+        -- NUMBER_OF_QUAD = NUMBER_OF_QUAD - 1
+        -- NUMBER_OF_QUAD = math.max(0, NUMBER_OF_QUAD)
+    -- end
+    -- if key == "right" then
+        -- NUMBER_OF_QUAD = NUMBER_OF_QUAD + 1
+    -- end
     
 
     if key == "b" or key == "o" then
