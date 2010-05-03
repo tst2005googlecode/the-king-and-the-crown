@@ -44,12 +44,12 @@ function Unit:update(dt, up, down, left, right, room)
 
     -- update coordinates
     if up == true then
-        local cellUp = room:getCellAtCoordinate(self.x, self.y-8)
-        if cellUp ~= nil then
-            if cellUp.wall == false and cellUp.water == false then
+        --local cellUp = room:getCellAtCoordinate(self.x, self.y-8)
+        --if cellUp ~= nil then
+            --if cellUp.wall == false and cellUp.water == false then
                 self.y = self.y - dt * self.unittype.velocity
-            end
-        end
+            --end
+        --end
     elseif down == true then
         self.y = self.y + dt * self.unittype.velocity
     end
