@@ -87,7 +87,7 @@ function love.draw()
     
     
     -- print the level number
-    love.graphics.print("Try <up>, <down>, <left> and <right> keys to move, type <+> and <-> to change type .", 30, 450);
+    love.graphics.print("Try <up>, <down>, <left> and <right> keys to move, type <+> and <-> to change type .", 30, 430);
     love.graphics.print("TYPE_NUMBER = [" .. TYPE_NUMBER .. "].", 30, 450);
     
     
@@ -167,23 +167,19 @@ NUMBER_TO_DEBUG = 0
 
 function love.keypressed(key, unicode)
 
-    local delta = 1
-    
-    -- if key == "up" then
-        -- ROOM_NUMBER = ROOM_NUMBER + 1
-    -- end
-    -- if key == "down" then
-        -- ROOM_NUMBER = ROOM_NUMBER - 1
-    -- end
-    
-    
-    if key == "p" then
-        if MODE == WALL then
-            graphics.dungeon[NUMBER_TO_DEBUG] = NUMBER_OF_QUAD
-        else
-            graphics.water[NUMBER_TO_DEBUG] = NUMBER_OF_QUAD
-        end
+   
+   
+    if key == "+" or key == "kp+" then
+        TYPE_NUMBER = TYPE_NUMBER + 1
+        if TYPE_NUMBER > 2 then TYPE_NUMBER = 0 end
     end
+    if key == "-" or key == "kp-" then
+        TYPE_NUMBER = TYPE_NUMBER - 1
+        if TYPE_NUMBER < 0 then TYPE_NUMBER = 2 end
+    end
+    my_unit:setUnitType(getTypeWithNumber())
+   
+   
     
     -- if key == "left" then
         -- NUMBER_OF_QUAD = NUMBER_OF_QUAD - 1
@@ -304,5 +300,9 @@ function getTypeWithNumber()
     
     if (TYPE_NUMBER == 0) then
         return UnitType.UNKNOW
+    elseif (TYPE_NUMBER == 1) then
+        return UnitType.HERO
+    elseif (TYPE_NUMBER == 2) then
+        return UnitType.SKELETON
     end
 end
