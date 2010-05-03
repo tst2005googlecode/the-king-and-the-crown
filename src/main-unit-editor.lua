@@ -24,7 +24,7 @@ require("cell.lua")
 require("style.lua")
 
 
-
+TYPE_NUMBER = 0
 
 --- Call back function of the 'love' engine
 -- Load all sprites
@@ -34,7 +34,7 @@ function love.load()
     my_unit = Unit.create()
     my_unit.x = 100
     my_unit.y = 100
-    my_unit:setUnitType(UnitType.HERO)
+    my_unit:setUnitType(getTypeWithNumber())
 
 end
 
@@ -68,7 +68,7 @@ DRAW_BLOCK = 0
 
 function love.draw()
 
-    local my_type = UnitType.HERO
+    local my_type = getTypeWithNumber()
 
     my_type:draw_back(50, 20, frame_num)
     my_type:draw_back_stand(50, 40)
@@ -85,6 +85,10 @@ function love.draw()
     my_type:draw_front_stand(50, 60)
     my_type:draw_front(50, 80, frame_num)
     
+    
+    -- print the level number
+    love.graphics.print("Try <up>, <down>, <left> and <right> keys to move, type <+> and <-> to change type .", 30, 450);
+    love.graphics.print("TYPE_NUMBER = [" .. TYPE_NUMBER .. "].", 30, 450);
     
     
     
@@ -291,5 +295,14 @@ function loaddata()
             end
         end
         file:close()
+    end
+end
+
+function getTypeWithNumber()
+    assert(TYPE_NUMBER >= 0, "type number is not between 0 and 2")
+    assert(TYPE_NUMBER <= 2, "type number is not between 0 and 2")
+    
+    if (TYPE_NUMBER == 0) then
+        return UnitType.UNKNOW
     end
 end

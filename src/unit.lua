@@ -108,6 +108,12 @@ function Unit:draw()
     else
         if self.direction == "left" then
             self.unittype:draw_backside_stand(self.x, self.y, self.frame)
+        elseif self.direction == "right" then
+            self.unittype:draw_side_stand(self.x, self.y, self.frame)
+        elseif self.direction == "up" then
+            self.unittype:draw_back_stand(self.x, self.y, self.frame)
+        elseif self.direction == "down" then
+            self.unittype:draw_front_stand(self.x, self.y, self.frame)
         end
     end
 
