@@ -26,33 +26,80 @@ function UnitType.create(name, filename)
 
     temp.name = name
 
-    temp.img_stand_front = love.graphics.newImage(string.format("%s%03d.png", name, 1))
+    temp.img_front_stand = love.graphics.newImage(string.format("%s_front_stand.png", name))
+
+    temp.img_front_1 = love.graphics.newImage(string.format("%s_front_1.png", name))
+    temp.img_front_2 = love.graphics.newImage(string.format("%s_front_2.png", name))
+    temp.img_front_3 = love.graphics.newImage(string.format("%s_front_3.png", name))
+    temp.img_front_4 = love.graphics.newImage(string.format("%s_front_4.png", name))
+
+    temp.img_back_stand = love.graphics.newImage(string.format("%s_back_stand.png", name))
+
+    temp.img_back_1 = love.graphics.newImage(string.format("%s_back_1.png", name))
+    temp.img_back_2 = love.graphics.newImage(string.format("%s_back_2.png", name))
+    temp.img_back_3 = love.graphics.newImage(string.format("%s_back_3.png", name))
+    temp.img_back_4 = love.graphics.newImage(string.format("%s_back_4.png", name))
+
+    temp.img_side_stand = love.graphics.newImage(string.format("%s_side_stand.png", name))
+
+    temp.img_side_1 = love.graphics.newImage(string.format("%s_side_1.png", name))
+    temp.img_side_2 = love.graphics.newImage(string.format("%s_side_2.png", name))
+    temp.img_side_3 = love.graphics.newImage(string.format("%s_side_3.png", name))
+    temp.img_side_4 = love.graphics.newImage(string.format("%s_side_4.png", name))
 
     return temp
 end
 
--- function UnitType.create()
-    -- return UnitType.create("???", "unknow001.png")
--- end
+function UnitType:draw_back(x, y, numframe)
+    if numframe == 1 then
+        love.graphics.draw(self.img_back_1, x-8, y-29)
+    elseif numframe == 2 then
+        love.graphics.draw(self.img_back_2, x-8, y-29)
+    elseif numframe == 3 then
+        love.graphics.draw(self.img_back_3, x-8, y-29)
+    elseif numframe == 4 then
+        love.graphics.draw(self.img_back_4, x-8, y-29)
+    end
+end
 
--- function Unit:update(dt, up, down, left, right)
-    -- if up == 1 then
-        -- self.y = self.y - dt * self.velocity
-    -- end
-    -- if down == 1 then
-        -- self.y = self.y + dt * self.velocity
-    -- end
-    -- if left == 1 then
-        -- self.x = self.x - dt * self.velocity
-    -- end
-    -- if right == 1 then
-        -- self.x = self.x + dt * self.velocity
-    -- end
--- end
+function UnitType:draw_side_stand(x, y)
+    love.graphics.draw(self.img_side_stand, x-8, y-29)
+end
+
+function UnitType:draw_side(x, y, numframe)
+    if numframe == 1 then
+        love.graphics.draw(self.img_side_1, x-8, y-29)
+    elseif numframe == 2 then
+        love.graphics.draw(self.img_side_2, x-8, y-29)
+    elseif numframe == 3 then
+        love.graphics.draw(self.img_side_3, x-8, y-29)
+    elseif numframe == 4 then
+        love.graphics.draw(self.img_side_4, x-8, y-29)
+    end
+end
+
+function UnitType:draw_back_stand(x, y)
+    love.graphics.draw(self.img_back_stand, x-8, y-29)
+end
 
 function UnitType:draw(x, y)
-    -- because 
-    love.graphics.draw(self.img_stand_front, x-8, y-29)
+    self:draw_front_stand(x-8, y-29)
+end
+
+function UnitType:draw_front(x, y, numframe)
+    if numframe == 1 then
+        love.graphics.draw(self.img_front_1, x-8, y-29)
+    elseif numframe == 2 then
+        love.graphics.draw(self.img_front_2, x-8, y-29)
+    elseif numframe == 3 then
+        love.graphics.draw(self.img_front_3, x-8, y-29)
+    elseif numframe == 4 then
+        love.graphics.draw(self.img_front_4, x-8, y-29)
+    end
+end
+
+function UnitType:draw_front_stand(x, y)
+    love.graphics.draw(self.img_front_stand, x-8, y-29)
 end
 
 UnitType.UNKNOW = UnitType.create("unknow")

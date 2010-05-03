@@ -32,8 +32,6 @@ MONSTER = 66
 MODE = WALL
 
 
-MONSTER = UnitType.SKELETON
-
 
 --- Call back function of the 'love' engine
 -- Load all sprites
@@ -75,6 +73,7 @@ function love.load()
 
 
 
+
     loaddata()
 end
 
@@ -83,7 +82,21 @@ X_ROUND = 0
 Y_ROUND = 0
 LEVEL = 0
 
+frame_num_time = 0
+frame_num = 1
+
 function love.update(dt)
+
+    frame_num_time = frame_num_time + dt
+    
+    if frame_num_time > 0.2 then
+        frame_num_time = frame_num_time - 0.2
+        frame_num = frame_num + 1
+    end
+
+    if frame_num > 4 then
+        frame_num = 1
+    end
 
     if love.keyboard.isDown("up") then
         NUMBER_TO_DEBUG = NUMBER_TO_DEBUG + 1
@@ -105,64 +118,16 @@ DRAW_BLOCK = 0
 
 function love.draw()
 
-    if MODE == WALL or MODE == WATER then
-        -- for x=0,32 do
-            -- for y=0,32 do
-                -- love.graphics.draw(graphics["grass"], x*32, y*32)
-            -- end
-        -- end
-        
-        if DRAW_BLOCK == 0 then
-            room:draw_wall()
-            room:draw_water()
-        else
-            if MODE == WALL then
-                room:draw_wall_block()
-            else
-                room:draw_water_block()
-            end
-        end
-
-
-
-
-
-        love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " 
-            .. Y_ROUND .. " level = " .. LEVEL .. ".", 30, 430)
-        
-        local nb_dungeon = -1
-        if MODE == WALL then
-            nb_dungeon = graphics.dungeon[NUMBER_TO_DEBUG]
-        else
-            nb_dungeon = graphics.water[NUMBER_TO_DEBUG]
-        end
-        
-        if nb_dungeon == nil then
-            nb_dungeon = -1
-        end
-        love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " 
-            .. nb_dungeon .. ".", 30, 440);
-
-
-
-
-        -- print the level number
-        love.graphics.print("ROOM_NUMBER = [" .. ROOM_NUMBER .. "].", 30, 450);
+    UnitType.HERO:draw_back(50, 20, frame_num)
+    UnitType.HERO:draw_back_stand(50, 40)
     
-    else -- monster mode 
-        -- Draw level
-        room:draw_wall()
-        room:draw_water()
-        room:draw_monster()
-        room:draw_hero()
-        
-        -- monster mode
-        local x = love.mouse.getX()
-        local y = love.mouse.getY()
-
-        UnitType.SKELETON:draw(x, y)
-
-    end
+    
+    UnitType.HERO:draw_side_stand(65, 50)
+    UnitType.HERO:draw_side(85, 50, frame_num)
+    
+    
+    UnitType.HERO:draw_front_stand(50, 60)
+    UnitType.HERO:draw_front(50, 80, frame_num)
 end
 
 
@@ -196,17 +161,12 @@ function love.mousepressed(x, y, button)
             else
                 cell.wall = true
             end
-        elseif MODE == WATER then
+        else
             if cell.water == true then
                 cell.water = false
             else
                 cell.water = true
             end
-        elseif MODE == MONSTER then
-            local new_monster = Unit.create()
-            new_monster.x = x
-            new_monster.y = y
-            table.insert(room.monsters, new_monster)
         end
         
         -- local cellup = room.cells[X_ROUND][Y_ROUND+1]
@@ -283,9 +243,6 @@ function love.keypressed(key, unicode)
 
 
 
-    if key == "f1" then
-        MODE = MONSTER
-    end
     if key == "f2" then
         MODE = WATER
     end
