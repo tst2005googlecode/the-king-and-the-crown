@@ -25,7 +25,9 @@ function UnitType.create(name, filename)
     setmetatable(temp, UnitType)
 
     temp.name = name
+    temp.velocity = 50 -- default velocity
 
+    -- set up graphics
     temp.img_front_stand = love.graphics.newImage(string.format("%s_front_stand.png", name))
 
     temp.img_front_1 = love.graphics.newImage(string.format("%s_front_1.png", name))
@@ -107,6 +109,7 @@ function UnitType:draw(x, y)
     self:draw_front_stand(x-8, y-29)
 end
 
+-- Draw the front of the unit
 function UnitType:draw_front(x, y, numframe)
     if numframe == 1 then
         love.graphics.draw(self.img_front_1, x-8, y-29)
@@ -125,4 +128,5 @@ end
 
 UnitType.UNKNOW = UnitType.create("unknow")
 UnitType.HERO = UnitType.create("hero")
+UnitType.HERO.velocity = 80
 UnitType.SKELETON = UnitType.create("skeleton")
