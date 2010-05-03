@@ -64,6 +64,10 @@ function love.load()
 
     -- love.graphics.setFont(font)
     -- love.graphics.setColor(200, 200, 200);
+    
+    font = love.graphics.newFont("vinque.ttf", 10)
+    love.graphics.setFont(font)
+
 
 end
 
@@ -226,7 +230,8 @@ love.graphics.print("DEBUG: x = " .. X_ROUND .. " y = " .. Y_ROUND .. " level = 
         if nb_dungeon == nil then
             nb_dungeon = -1
         end
-love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " .. nb_dungeon .. ".", 30, 500);
+        love.graphics.print("DEBUG: NUMBER_TO_DEBUG = " .. NUMBER_TO_DEBUG .. " DG= " 
+            .. nb_dungeon .. ".", 30, 500);
 
 
         

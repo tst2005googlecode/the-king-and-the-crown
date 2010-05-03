@@ -68,6 +68,8 @@ function love.load()
     room:setStyleWater(Style.create("dungeon256x256.png", 16))
 
 
+    font = love.graphics.newFont("vinque.ttf", 10)
+    love.graphics.setFont(font)
 
 
 
