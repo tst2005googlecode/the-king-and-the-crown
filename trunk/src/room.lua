@@ -273,7 +273,7 @@ end
 
 function Room:draw_hero()
 
-    self.hero:draw()
+    self.hero:draw(0, 0)
 
 end
 
@@ -385,4 +385,15 @@ function Room:load(filename)
         -- file:close()
     end
     
+end
+
+-- Return the cell at the coordinate x and y.
+function Room:getCellAtCoordinate(x, y)
+    assert(x >= 0, "x number is not between 0 and 2")
+    assert(x <= 2, "x number is not between 0 and 2")
+    
+    local x_coo = math.floor(x/16)
+    local y_coo = 
+
+
 end

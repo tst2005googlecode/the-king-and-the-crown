@@ -92,7 +92,7 @@ function love.draw()
     
     
     
-    my_unit:draw()
+    my_unit:draw(50, 50)
 end
 
 
