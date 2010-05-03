@@ -99,6 +99,12 @@ function love.update(dt)
         end
     end
 
+    
+    room.hero:update(dt, love.keyboard.isDown("y"),
+        love.keyboard.isDown("h"), 
+        love.keyboard.isDown("g"),
+        love.keyboard.isDown("j"),
+        room)
 end
 
 DRAW_BLOCK = 0
@@ -277,9 +283,9 @@ function love.keypressed(key, unicode)
         end
     end
     
-    if key == "y" then
-        room:make_room(5, 5, 6, 6, 0)
-    end
+    -- if key == "y" then
+        -- room:make_room(5, 5, 6, 6, 0)
+    -- end
 
 
 

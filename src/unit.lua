@@ -40,11 +40,16 @@ function Unit.create()
     return temp
 end
 
-function Unit:update(dt, up, down, left, right)
+function Unit:update(dt, up, down, left, right, room)
 
     -- update coordinates
     if up == true then
-        self.y = self.y - dt * self.unittype.velocity
+        local cellUp = room:getCellAtCoordinate(self.x, self.y-8)
+        if cellUp ~= nil then
+            if cellUp.wall == false and cellUp.water == false then
+                self.y = self.y - dt * self.unittype.velocity
+            end
+        end
     elseif down == true then
         self.y = self.y + dt * self.unittype.velocity
     end
@@ -92,27 +97,27 @@ function Unit:setUnitType(unittype)
     self.unittype = unittype
 end
 
-function Unit:draw()
+function Unit:draw(origine_x, origine_y)
     
     if self.moving then
         if self.direction == "left" then
-            self.unittype:draw_backside(math.floor(self.x), math.floor(self.y), self.frame_num)
+            self.unittype:draw_backside(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame_num)
         elseif self.direction == "right" then
-            self.unittype:draw_side(math.floor(self.x), math.floor(self.y), self.frame_num)
+            self.unittype:draw_side(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame_num)
         elseif self.direction == "up" then
-            self.unittype:draw_back(math.floor(self.x), math.floor(self.y), self.frame_num)
+            self.unittype:draw_back(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame_num)
         elseif self.direction == "down" then
-            self.unittype:draw_front(math.floor(self.x), math.floor(self.y), self.frame_num)
+            self.unittype:draw_front(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame_num)
         end
     else
         if self.direction == "left" then
-            self.unittype:draw_backside_stand(math.floor(self.x), math.floor(self.y), self.frame)
+            self.unittype:draw_backside_stand(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame)
         elseif self.direction == "right" then
-            self.unittype:draw_side_stand(math.floor(self.x), math.floor(self.y), self.frame)
+            self.unittype:draw_side_stand(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame)
         elseif self.direction == "up" then
-            self.unittype:draw_back_stand(math.floor(self.x), math.floor(self.y), self.frame)
+            self.unittype:draw_back_stand(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame)
         elseif self.direction == "down" then
-            self.unittype:draw_front_stand(math.floor(self.x), math.floor(self.y), self.frame)
+            self.unittype:draw_front_stand(origine_x + math.floor(self.x), origine_y + math.floor(self.y), self.frame)
         end
     end
 
