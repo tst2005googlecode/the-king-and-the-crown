@@ -390,10 +390,10 @@ end
 -- Return the cell at the coordinate x and y.
 function Room:getCellAtCoordinate(x, y)
     assert(x >= 0, "x number is not between 0 and 2")
-    assert(x <= 2, "x number is not between 0 and 2")
+    assert(x <= 30*16, "x number is not between 0 and 2")
     
     local x_coo = math.floor(x/16)
-    local y_coo = 
+    --local y_coo = 
 
-
+    return nil
 end
