@@ -29,7 +29,6 @@ function Unit.create()
     temp.y = 0
     temp.unittype = UnitType.UNKNOW
     temp.selected = 0
-    temp.velocity = 100
     
     temp.direction = "down"
     temp.moving = false
@@ -45,14 +44,14 @@ function Unit:update(dt, up, down, left, right)
 
     -- update coordinates
     if up == true then
-        self.y = self.y - dt * self.velocity
+        self.y = self.y - dt * self.unittype.velocity
     elseif down == true then
-        self.y = self.y + dt * self.velocity
+        self.y = self.y + dt * self.unittype.velocity
     end
     if left == true then
-        self.x = self.x - dt * self.velocity
+        self.x = self.x - dt * self.unittype.velocity
     elseif right == true then
-        self.x = self.x + dt * self.velocity
+        self.x = self.x + dt * self.unittype.velocity
     end
     
     -- update direction for animation drawing
