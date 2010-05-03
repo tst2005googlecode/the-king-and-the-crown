@@ -97,23 +97,23 @@ function Unit:draw()
     
     if self.moving then
         if self.direction == "left" then
-            self.unittype:draw_backside(self.x, self.y, self.frame_num)
+            self.unittype:draw_backside(math.floor(self.x), math.floor(self.y), self.frame_num)
         elseif self.direction == "right" then
-            self.unittype:draw_side(self.x, self.y, self.frame_num)
+            self.unittype:draw_side(math.floor(self.x), math.floor(self.y), self.frame_num)
         elseif self.direction == "up" then
-            self.unittype:draw_back(self.x, self.y, self.frame_num)
+            self.unittype:draw_back(math.floor(self.x), math.floor(self.y), self.frame_num)
         elseif self.direction == "down" then
-            self.unittype:draw_front(self.x, self.y, self.frame_num)
+            self.unittype:draw_front(math.floor(self.x), math.floor(self.y), self.frame_num)
         end
     else
         if self.direction == "left" then
-            self.unittype:draw_backside_stand(self.x, self.y, self.frame)
+            self.unittype:draw_backside_stand(math.floor(self.x), math.floor(self.y), self.frame)
         elseif self.direction == "right" then
-            self.unittype:draw_side_stand(self.x, self.y, self.frame)
+            self.unittype:draw_side_stand(math.floor(self.x), math.floor(self.y), self.frame)
         elseif self.direction == "up" then
-            self.unittype:draw_back_stand(self.x, self.y, self.frame)
+            self.unittype:draw_back_stand(math.floor(self.x), math.floor(self.y), self.frame)
         elseif self.direction == "down" then
-            self.unittype:draw_front_stand(self.x, self.y, self.frame)
+            self.unittype:draw_front_stand(math.floor(self.x), math.floor(self.y), self.frame)
         end
     end
 
