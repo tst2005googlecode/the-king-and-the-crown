@@ -31,6 +31,37 @@ TYPE_NUMBER = 0
 -- @author Damien Carol <damien.carol@gmail.com>
 function love.load()
 
+      -- load sprites defined in table
+    graphics = {castle = love.graphics.newImage("castle.png"),
+                grass = love.graphics.newImage("grass.png"),
+                unknow001 = love.graphics.newImage("unknow001.png"),
+                archer001 = love.graphics.newImage("archer001.png"),
+                knight001 = love.graphics.newImage("knight001.png"),
+                
+                
+                roomBLOCK = love.graphics.newImage("block.png"),
+                roomFREE = love.graphics.newImage("free.png"),
+                
+                dungeon = {},
+                water = {},
+                
+                }
+    
+    graphics.theme = {}
+    graphics.theme["dungeon"] = Style.create("dungeon256x256.png", 16)
+
+    
+    -- create main room object
+    room = Room.create()
+    room:setStyle(Style.create("dungeon256x256.png", 16))
+    room:setStyleWater(Style.create("dungeon256x256.png", 16))
+
+    loaddata()
+    
+    
+    
+    
+
     my_unit = Unit.create()
     my_unit.x = 100
     my_unit.y = 100
@@ -60,13 +91,21 @@ function love.update(dt)
     my_unit:update(dt, love.keyboard.isDown("up"),
         love.keyboard.isDown("down"), 
         love.keyboard.isDown("left"),
-        love.keyboard.isDown("right"))
+        love.keyboard.isDown("right"),
+        room)
 
 end
 
 DRAW_BLOCK = 0
 
 function love.draw()
+
+    room:draw_wall()
+    room:draw_water()
+    room:draw_monster()
+    room:draw_hero()
+
+
 
     local my_type = getTypeWithNumber()
 
@@ -171,11 +210,11 @@ function love.keypressed(key, unicode)
    
     if key == "+" or key == "kp+" then
         TYPE_NUMBER = TYPE_NUMBER + 1
-        if TYPE_NUMBER > 2 then TYPE_NUMBER = 0 end
+        if TYPE_NUMBER > 3 then TYPE_NUMBER = 0 end
     end
     if key == "-" or key == "kp-" then
         TYPE_NUMBER = TYPE_NUMBER - 1
-        if TYPE_NUMBER < 0 then TYPE_NUMBER = 2 end
+        if TYPE_NUMBER < 0 then TYPE_NUMBER = 3 end
     end
     my_unit:setUnitType(getTypeWithNumber())
    
@@ -296,7 +335,7 @@ end
 
 function getTypeWithNumber()
     assert(TYPE_NUMBER >= 0, "type number is not between 0 and 2")
-    assert(TYPE_NUMBER <= 2, "type number is not between 0 and 2")
+    assert(TYPE_NUMBER <= 3, "type number is not between 0 and 2")
     
     if (TYPE_NUMBER == 0) then
         return UnitType.UNKNOW
@@ -304,5 +343,7 @@ function getTypeWithNumber()
         return UnitType.HERO
     elseif (TYPE_NUMBER == 2) then
         return UnitType.SKELETON
+    elseif (TYPE_NUMBER == 3) then
+        return UnitType.GOLEM
     end
 end
