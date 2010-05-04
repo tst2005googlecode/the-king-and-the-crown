@@ -28,26 +28,26 @@ function UnitType.create(name, filename)
     temp.velocity = 50 -- default velocity
 
     -- set up graphics
-    temp.img_front_stand = love.graphics.newImage(string.format("%s_front_stand.png", name))
+    temp.img_front_stand = UnitType.loadImage("%s_front_stand.png", name)
 
-    temp.img_front_1 = love.graphics.newImage(string.format("%s_front_1.png", name))
-    temp.img_front_2 = love.graphics.newImage(string.format("%s_front_2.png", name))
-    temp.img_front_3 = love.graphics.newImage(string.format("%s_front_3.png", name))
-    temp.img_front_4 = love.graphics.newImage(string.format("%s_front_4.png", name))
+    temp.img_front_1 = UnitType.loadImage("%s_front_1.png", name)
+    temp.img_front_2 = UnitType.loadImage("%s_front_2.png", name)
+    temp.img_front_3 = UnitType.loadImage("%s_front_3.png", name)
+    temp.img_front_4 = UnitType.loadImage("%s_front_4.png", name)
 
-    temp.img_back_stand = love.graphics.newImage(string.format("%s_back_stand.png", name))
+    temp.img_back_stand = UnitType.loadImage("%s_back_stand.png", name)
 
-    temp.img_back_1 = love.graphics.newImage(string.format("%s_back_1.png", name))
-    temp.img_back_2 = love.graphics.newImage(string.format("%s_back_2.png", name))
-    temp.img_back_3 = love.graphics.newImage(string.format("%s_back_3.png", name))
-    temp.img_back_4 = love.graphics.newImage(string.format("%s_back_4.png", name))
+    temp.img_back_1 = UnitType.loadImage("%s_back_1.png", name)
+    temp.img_back_2 = UnitType.loadImage("%s_back_2.png", name)
+    temp.img_back_3 = UnitType.loadImage("%s_back_3.png", name)
+    temp.img_back_4 = UnitType.loadImage("%s_back_4.png", name)
 
-    temp.img_side_stand = love.graphics.newImage(string.format("%s_side_stand.png", name))
+    temp.img_side_stand = UnitType.loadImage("%s_side_stand.png", name)
 
-    temp.img_side_1 = love.graphics.newImage(string.format("%s_side_1.png", name))
-    temp.img_side_2 = love.graphics.newImage(string.format("%s_side_2.png", name))
-    temp.img_side_3 = love.graphics.newImage(string.format("%s_side_3.png", name))
-    temp.img_side_4 = love.graphics.newImage(string.format("%s_side_4.png", name))
+    temp.img_side_1 = UnitType.loadImage("%s_side_1.png", name)
+    temp.img_side_2 = UnitType.loadImage("%s_side_2.png", name)
+    temp.img_side_3 = UnitType.loadImage("%s_side_3.png", name)
+    temp.img_side_4 = UnitType.loadImage("%s_side_4.png", name)
 
     return temp
 end
@@ -126,7 +126,17 @@ function UnitType:draw_front_stand(x, y)
     love.graphics.draw(self.img_front_stand, x-8, y-29)
 end
 
+function UnitType.loadImage(pattern, name)
+    local filename = string.format(pattern, name)
+    print("loading: " .. filename)
+    if love.filesystem.exists(filename) == false then
+        filename = string.format(pattern, "unknow")
+    end
+    return love.graphics.newImage(filename)
+end
+
 UnitType.UNKNOW = UnitType.create("unknow")
 UnitType.HERO = UnitType.create("hero")
 UnitType.HERO.velocity = 80
 UnitType.SKELETON = UnitType.create("skeleton")
+UnitType.GOLEM = UnitType.create("golem")

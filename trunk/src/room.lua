@@ -42,7 +42,7 @@ function Room.create()
             local cell = Cell.create()
             cell.x = x
             cell.y = y
-            cell.wall = true
+            cell.wall = false
             cell.water = false
             temp.cells[x][y] = cell
         end
