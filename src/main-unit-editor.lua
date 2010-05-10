@@ -24,7 +24,7 @@ require("cell.lua")
 require("style.lua")
 
 
-TYPE_NUMBER = 0
+TYPE_NUMBER = 1
 
 --- Call back function of the 'love' engine
 -- Load all sprites
@@ -58,7 +58,8 @@ function love.load()
 
     loaddata()
     
-    
+    room.cells[10][10].wall = true
+    room.cells[10][11].wall = true
     
     
 
@@ -88,12 +89,17 @@ function love.update(dt)
     
     
     
-    my_unit:update(dt, love.keyboard.isDown("up"),
+    -- my_unit:update(dt, love.keyboard.isDown("up"),
+        -- love.keyboard.isDown("down"), 
+        -- love.keyboard.isDown("left"),
+        -- love.keyboard.isDown("right"),
+        -- room)
+
+    room.hero:update(dt, love.keyboard.isDown("up"),
         love.keyboard.isDown("down"), 
         love.keyboard.isDown("left"),
         love.keyboard.isDown("right"),
         room)
-
 end
 
 DRAW_BLOCK = 0
@@ -129,9 +135,15 @@ function love.draw()
     love.graphics.print("Try <up>, <down>, <left> and <right> keys to move, type <+> and <-> to change type .", 30, 430);
     love.graphics.print("TYPE_NUMBER = [" .. TYPE_NUMBER .. "].", 30, 450);
     
+    --local x, y = love.mouse.getPosition( )
+    --love.graphics.print("self.x = [" .. x .. "] self.y = " .. y .. " .", 30, 460);
+    --love.graphics.print("wall = " .. tostring(room:getCellAtCoordinate(x, y+4).wall) .. " .", 30, 460);
+    --love.graphics.print("self.x = [" .. my_unit.x .. "] self.y = " .. my_unit.y .. " .", 30, 460);
+    --love.graphics.print("wall = " .. tostring(room:getCellAtCoordinate(my_unit.x, my_unit.y).wall) .. " .", 30, 460);
     
     
-    my_unit:draw(50, 50)
+    
+    --my_unit:draw(50, 50)
 end
 
 
