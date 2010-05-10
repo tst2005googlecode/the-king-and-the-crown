@@ -19,6 +19,7 @@
 UnitType = {}
 UnitType.__index = UnitType
 
+UnitType.X_DECAL = 16
 
 function UnitType.create(name, filename)
     local temp = {}
@@ -53,41 +54,41 @@ function UnitType.create(name, filename)
 end
 
 function UnitType:draw_back_stand(x, y)
-    love.graphics.draw(self.img_back_stand, x-8, y-29)
+    love.graphics.draw(self.img_back_stand, x-UnitType.X_DECAL, y-29)
 end
 
 function UnitType:draw_back(x, y, numframe)
     if numframe == 1 then
-        love.graphics.draw(self.img_back_1, x-8, y-29)
+        love.graphics.draw(self.img_back_1, x-UnitType.X_DECAL, y-29)
     elseif numframe == 2 then
-        love.graphics.draw(self.img_back_2, x-8, y-29)
+        love.graphics.draw(self.img_back_2, x-UnitType.X_DECAL, y-29)
     elseif numframe == 3 then
-        love.graphics.draw(self.img_back_3, x-8, y-29)
+        love.graphics.draw(self.img_back_3, x-UnitType.X_DECAL, y-29)
     elseif numframe == 4 then
-        love.graphics.draw(self.img_back_4, x-8, y-29)
+        love.graphics.draw(self.img_back_4, x-UnitType.X_DECAL, y-29)
     end
 end
 
 function UnitType:draw_side_stand(x, y)
-    love.graphics.draw(self.img_side_stand, x-8, y-29)
+    love.graphics.draw(self.img_side_stand, x-UnitType.X_DECAL, y-29)
 end
 
 function UnitType:draw_side(x, y, numframe)
     if numframe == 1 then
-        love.graphics.draw(self.img_side_1, x-8, y-29)
+        love.graphics.draw(self.img_side_1, x-UnitType.X_DECAL, y-29)
     elseif numframe == 2 then
-        love.graphics.draw(self.img_side_2, x-8, y-29)
+        love.graphics.draw(self.img_side_2, x-UnitType.X_DECAL, y-29)
     elseif numframe == 3 then
-        love.graphics.draw(self.img_side_3, x-8, y-29)
+        love.graphics.draw(self.img_side_3, x-UnitType.X_DECAL, y-29)
     elseif numframe == 4 then
-        love.graphics.draw(self.img_side_4, x-8, y-29)
+        love.graphics.draw(self.img_side_4, x-UnitType.X_DECAL, y-29)
     end
 end
 
 function UnitType:draw_backside_stand(x, y)
     local quady = love.graphics.newQuad(0, 0, 32, 32, 32, 32)
     quady:flip(true, false)
-    love.graphics.drawq(self.img_side_stand, quady, x-8, y-29)
+    love.graphics.drawq(self.img_side_stand, quady, x-UnitType.X_DECAL, y-29)
 end
 
 function UnitType:draw_backside(x, y, numframe)
@@ -95,35 +96,35 @@ function UnitType:draw_backside(x, y, numframe)
     quady:flip(true, false)
     
     if numframe == 1 then
-        love.graphics.drawq(self.img_side_1, quady, x-8, y-29)
+        love.graphics.drawq(self.img_side_1, quady, x-UnitType.X_DECAL, y-29)
     elseif numframe == 2 then
-        love.graphics.drawq(self.img_side_2, quady, x-8, y-29)
+        love.graphics.drawq(self.img_side_2, quady, x-UnitType.X_DECAL, y-29)
     elseif numframe == 3 then
-        love.graphics.drawq(self.img_side_3, quady, x-8, y-29)
+        love.graphics.drawq(self.img_side_3, quady, x-UnitType.X_DECAL, y-29)
     elseif numframe == 4 then
-        love.graphics.drawq(self.img_side_4, quady, x-8, y-29)
+        love.graphics.drawq(self.img_side_4, quady, x-UnitType.X_DECAL, y-29)
     end
 end
 
 function UnitType:draw(x, y)
-    self:draw_front_stand(x-8, y-29)
+    self:draw_front_stand(x-UnitType.X_DECAL, y-29)
 end
 
 -- Draw the front of the unit
 function UnitType:draw_front(x, y, numframe)
     if numframe == 1 then
-        love.graphics.draw(self.img_front_1, x-8, y-29)
+        love.graphics.draw(self.img_front_1, x-UnitType.X_DECAL, y-29)
     elseif numframe == 2 then
-        love.graphics.draw(self.img_front_2, x-8, y-29)
+        love.graphics.draw(self.img_front_2, x-UnitType.X_DECAL, y-29)
     elseif numframe == 3 then
-        love.graphics.draw(self.img_front_3, x-8, y-29)
+        love.graphics.draw(self.img_front_3, x-UnitType.X_DECAL, y-29)
     elseif numframe == 4 then
-        love.graphics.draw(self.img_front_4, x-8, y-29)
+        love.graphics.draw(self.img_front_4, x-UnitType.X_DECAL, y-29)
     end
 end
 
 function UnitType:draw_front_stand(x, y)
-    love.graphics.draw(self.img_front_stand, x-8, y-29)
+    love.graphics.draw(self.img_front_stand, x-UnitType.X_DECAL, y-29)
 end
 
 function UnitType.loadImage(pattern, name)
