@@ -44,19 +44,34 @@ function Unit:update(dt, up, down, left, right, room)
 
     -- update coordinates
     if up == true then
-        --local cellUp = room:getCellAtCoordinate(self.x, self.y-8)
-        --if cellUp ~= nil then
-            --if cellUp.wall == false and cellUp.water == false then
+        local cellUp = room:getCellAtCoordinate(self.x, self.y-8)
+        if cellUp ~= nil then
+            if cellUp.wall == false and cellUp.water == false then
                 self.y = self.y - dt * self.unittype.velocity
-            --end
-        --end
+            end
+        end
     elseif down == true then
-        self.y = self.y + dt * self.unittype.velocity
+        local cellDown = room:getCellAtCoordinate(self.x, self.y+4)
+        if cellDown ~= nil then
+            if cellDown.wall == false and cellDown.water == false then
+                self.y = self.y + dt * self.unittype.velocity
+            end
+        end
     end
     if left == true then
-        self.x = self.x - dt * self.unittype.velocity
+        local cellLeft = room:getCellAtCoordinate(self.x-8, self.y)
+        if cellLeft ~= nil then
+            if cellLeft.wall == false and cellLeft.water == false then
+                self.x = self.x - dt * self.unittype.velocity
+            end
+        end
     elseif right == true then
-        self.x = self.x + dt * self.unittype.velocity
+        local cellRight = room:getCellAtCoordinate(self.x+8, self.y)
+        if cellRight ~= nil then
+            if cellRight.wall == false and cellRight.water == false then
+                self.x = self.x + dt * self.unittype.velocity
+            end
+        end
     end
     
     -- update direction for animation drawing
