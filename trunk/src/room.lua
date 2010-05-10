@@ -389,11 +389,24 @@ end
 
 -- Return the cell at the coordinate x and y.
 function Room:getCellAtCoordinate(x, y)
-    assert(x >= 0, "x number is not between 0 and 2")
-    assert(x <= 30*16, "x number is not between 0 and 2")
+    -- control that x is in logic area
+    if (x <0 or x > Room.MAXWIDTH * 16) then
+        return nil
+    end
+    -- control that y is in logic area
+    if (y <0 or y > Room.MAXHEIGHT * 16) then
+        return nil
+    end
     
     local x_coo = math.floor(x/16)
-    --local y_coo = 
+    local y_coo = math.floor(y/16)
+    
+    local x_tab = self.cells[x_coo]
+    if (x_tab ~= nil) then
+        if (self.cells[x_coo][y_coo] ~= nil) then
+            return self.cells[x_coo][y_coo]
+        end
+    end
 
     return nil
 end
